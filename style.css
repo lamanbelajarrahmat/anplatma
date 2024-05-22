@@ -1,0 +1,47 @@
+header{
+    background-color: darkgreen;
+    padding: 3pt;
+}
+footer{
+    background-color: darkseagreen;
+    padding: 3pt;
+}
+body{
+    background-color: aquamarine;
+    margin: 10px;
+}
+#h1mat{border-style: none; color: black;background-color: white;text-shadow: none;}  
+h1{
+    color: darkblue;
+    background-color: antiquewhite;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    border-style: solid;
+    border-width: 3px;
+    border-color: blueviolet;
+    text-shadow: 5px 3px 5px rgb(199, 157, 101),-5px -3px 5px white;     
+} 
+.box{
+    background-color: aliceblue;
+    max-height: 300px;
+    height: auto;
+    
+    padding: 3px;
+    margin: 2px;
+    border: 2px solid;
+    overflow: auto;
+}
+#box1{
+    color: black;
+    max-width: 500pt;   
+}
+#box2{    
+    color: blue;
+    max-width: max-content;    
+}  
+#box3{   
+    color: rgb(107, 10, 10);
+    max-width: max-content;   
+}  
+
+
+
