@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width">
+        <link rel="icon" type="image/png" href="images/myicon.png">       
+         <!--tag style untuk CSS Eksternal-->
+        <link rel="stylesheet" href="style.css">
+        <style>
+                        
+            #container p{
+                font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+            }
+            #container > p{
+                color: rgb(224, 24, 148);
+            }
+            
+            #container ~ p{
+                background-color: chartreuse;
+            }
+            #container + p{
+                font-style: italic;
+            }
+            
+        </style>
+        <title>Materi 28</title>
+    </head>
+
+    <body>
+        <header>
+            <h1>Selamat Datang </h1>
+            <h2 style="color: white;">di Laman Belajar Rahmat Hidayat</h2>           
+            <a href="index.html" style="color: azure;">Home</a><br><br>
+            <hr>            
+        </header>
+
+        <main>
+        <h2>Pelajaran 28: Combinator </h2>
+        <div class="box" id="box1"> 
+            <p>Combinator dalam CSS membantu kita dalam menyeleksi elemen-elemen pada halaman web dengan lebih spesifik. Dengan menggunakan kombinator, kita dapat menarget elemen berdasarkan hubungan antara satu elemen dengan elemen lainnya.</p>                   
+            <p>Ada empat jenis kombinator dalam CSS, yaitu 1.descendant combinator, 2.child combinator, 3.adjacent sibling combinator, dan 4.general sibling combinator.</p>
+            <p>1.Descendant Combinator diwakilkan dengan spasi. Ia digunakan untuk menyeleksi elemen yang merupakan turunan dari elemen lain.</p>
+            <p>2.Child Combinator ditandai dengan tanda >. Ia digunakan untuk menyeleksi elemen yang merupakan anak langsung dari elemen lain.</p>
+            <p>3.Adjacent Sibling Combinator ditandai dengan tanda +. Ia digunakan untuk menyeleksi elemen yang bersebelahan dan memiliki parent yang sama.</p>
+            <p>4.General Sibling Combinator ditandai dengan tanda ~. Ia digunakan untuk menyeleksi semua elemen yang bersebelahan dan memiliki parent yang sama.</p>
+            
+            <div style="border: 1px solid rgba(24, 2, 14, 0.137);">
+                <p>This is #6</p>
+                <p>This is #7</p>
+            </div><br>
+            <p>This is #8</p>
+            <p>This is #9</p> 
+            <div id="container" style="border: 1px solid red;" >
+                ini containernya
+                <p>This is #1 turunan (tanda:spasi), anak langsung (tanda:>)</p>
+                <p>This is #2 turunan (tanda:spasi), anak langsung (tanda:>)</p>
+                <div style="border: 1px solid darkblue;">
+                    <p>This is #3 turunan (tanda:spasi)</p>
+                    <p>This is #3a turunan (tanda:spasi)</p>
+                </div>
+            </div>
+            <p>This is #4 semus yg bersebelahan dan parent sama (tanda:~),satu yg bersebelahan langsung dan parent sama (tanda:+)</p>
+            <p>This is #5 semua yg bersebelahan dan parent sama (tanda:~)</p> 
+            <div style="border: 1px solid rgb(48, 233, 48);">
+                <p>This is #6</p>
+                <p>This is #7</p>
+            </div><br>
+        </div>
+        <h2>Tampilan HTML</h2>
+
+        <div class="box" id="box2">
+            <xmp>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width">
+        <link rel="icon" type="image/png" href="images/myicon.png">       
+            <!--tag style untuk CSS Eksternal-->
+        <link rel="stylesheet" href="style.css">
+        <style>
+                        
+            #container p{
+                font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+            }
+            #container > p{
+                color: rgb(224, 24, 148);
+            }
+            
+            #container ~ p{
+                background-color: chartreuse;
+            }
+            #container + p{
+                font-style: italic;
+            }
+            
+        </style>
+        <title>Materi 28</title>
+    </head>
+
+    <body>
+        <header>
+            <h1>Selamat Datang </h1>
+            <h2 style="color: white;">di Laman Belajar Rahmat Hidayat</h2>           
+            <a href="index.html" style="color: azure;">Home</a><br><br>
+            <hr>            
+        </header>
+
+        <main>
+        <h2>Pelajaran 28: Combinator </h2>        
+            <p>Combinator dalam CSS membantu kita dalam menyeleksi elemen-elemen pada halaman web dengan lebih spesifik. Dengan menggunakan kombinator, kita dapat menarget elemen berdasarkan hubungan antara satu elemen dengan elemen lainnya.</p>                   
+            <p>Ada empat jenis kombinator dalam CSS, yaitu 1.descendant combinator, 2.child combinator, 3.adjacent sibling combinator, dan 4.general sibling combinator.</p>
+            <p>1.Descendant Combinator diwakilkan dengan spasi. Ia digunakan untuk menyeleksi elemen yang merupakan turunan dari elemen lain.</p>
+            <p>2.Child Combinator ditandai dengan tanda >. Ia digunakan untuk menyeleksi elemen yang merupakan anak langsung dari elemen lain.</p>
+            <p>3.Adjacent Sibling Combinator ditandai dengan tanda +. Ia digunakan untuk menyeleksi elemen yang bersebelahan dan memiliki parent yang sama.</p>
+            <p>4.General Sibling Combinator ditandai dengan tanda ~. Ia digunakan untuk menyeleksi semua elemen yang bersebelahan dan memiliki parent yang sama.</p>
+            
+            <div style="border: 1px solid rgba(24, 2, 14, 0.137);">
+                <p>This is #6</p>
+                <p>This is #7</p>
+            </div><br>
+            <p>This is #8</p>
+            <p>This is #9</p> 
+            <div id="container" style="border: 1px solid red;" >
+                ini containernya
+                <p>This is #1 turunan (tanda:spasi), anak langsung (tanda:>)</p>
+                <p>This is #2 turunan (tanda:spasi), anak langsung (tanda:>)</p>
+                <div style="border: 1px solid darkblue;">
+                    <p>This is #3 turunan (tanda:spasi)</p>
+                    <p>This is #3a turunan (tanda:spasi)</p>
+                </div>
+            </div>
+            <p>This is #4 semus yg bersebelahan dan parent sama (tanda:~),satu yg bersebelahan langsung dan parent sama (tanda:+)</p>
+            <p>This is #5 semua yg bersebelahan dan parent sama (tanda:~)</p> 
+            <div style="border: 1px solid rgb(48, 233, 48);">
+                <p>This is #6</p>
+                <p>This is #7</p>
+            </div><br>  
+    </main>
+
+    <footer>
+        <hr>
+        author: Rahmat Hidayat<br>        
+        <small><a href="mailto:anplatma@gmail.com">anplatma@gmail.com</a></small>
+    </footer>
+
+    </body>
+</html>
+            </xmp>
+        </div>       
+        
+    </main>
+
+    <footer>
+        <hr>
+        author: Rahmat Hidayat<br>        
+        <small><a href="mailto:anplatma@gmail.com">anplatma@gmail.com</a></small>
+    </footer>
+
+    </body>
+</html>
