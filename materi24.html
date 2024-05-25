@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width">
+        <link rel="icon" type="image/png" href="images/myicon.png">       
+         <!--tag style untuk CSS Eksternal-->
+        <link rel="stylesheet" href="style.css">
+        <style>             
+            #div1{
+                background-color: coral;
+            }
+            #span1{
+                background-color: blueviolet;
+            }
+            #div2{
+                background-color: coral;
+                width: 100px;
+                height: 100px;
+            }
+            #span2{
+                background-color: blueviolet;
+                width: 100px;
+                height: 100px;
+
+            }
+            #div3{
+                background-color: coral;
+                width: 100px;
+                height: 100px;
+                display: block;
+            }
+            #span3{
+                background-color: blueviolet;
+                width: 100px;
+                height: 100px;
+                display: block;
+
+            }
+            #div4{
+                background-color: coral;
+                width: 100px;
+                height: 100px;
+                display: inline;
+            }
+            #span4{
+                background-color: blueviolet;
+                width: 100px;
+                height: 100px;
+                display: inline;
+
+            }
+            #div5{                
+                background-color: coral;
+                width: 100px;
+                height: 100px;
+                display: inline-block;
+            }
+            #span5{                
+                background-color: blueviolet;
+                width: 100px;
+                height: 100px;
+                display: inline-block;
+
+            }
+            #div6{                
+                background-color: coral;
+                width: 100px;
+                height: 100px;
+                display: inline-block;
+                visibility: hidden;
+            }
+            #span6{                
+                background-color: blueviolet;
+                width: 100px;
+                height: 100px;
+                display: inline-block;
+                visibility: hidden;
+            }
+            #div7{                
+                background-color: coral;
+                width: 100px;
+                height: 100px;
+                display: none;
+            }
+            #span7{                
+                background-color: blueviolet;
+                width: 100px;
+                height: 100px;
+                display: none;
+                
+            }
+        </style>
+        <title>Materi 24</title>
+    </head>
+
+    <body>
+        <header>
+            <h1>Selamat Datang </h1>
+            <h2 style="color: white;">di Laman Belajar Rahmat Hidayat</h2>           
+            <a href="index.html" style="color: azure;">Home</a><br><br>
+            <hr>            
+        </header>
+
+        <main>
+        <h2>Pelajaran 24: Display and Visibility Property </h2>
+        <div class="box" id="box1">        
+        <!--tuliskan isi disini--> 
+            <div id="div1">div1: bacground-color</div>
+            <span id="span1">span1: bacground-color</span><br><br>
+
+            <div id="div2">div2: bacground-color + width + heigth</div>
+            <span id="span2">span2: bacground-color + width + heigth</span><br><br>
+
+            <div id="div3">div3: bacground-color + width + heigth + display (block)</div>
+            <span id="span3">span3: bacground-color + width + heigth + display (block)</span>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam soluta sit, ex placeat dolorem, iure cupiditate totam illum perspiciatis reiciendis architecto maiores! Alias placeat, illo eum officia quam non magnam?<br><br>
+            
+            <div id="div4">div4: bacground-color + width + heigth + display (block)</div>
+            <span id="span4">span4: bacground-color + width + heigth + display (block)</span>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam soluta sit, ex placeat dolorem, iure cupiditate totam illum perspiciatis reiciendis architecto maiores! Alias placeat, illo eum officia quam non magnam?<br><br>
+            
+            <div id="div5">div5: bacground-color + width + heigth + display (inline-block)</div>
+            <span id="span5">span5: bacground-color + width + heigth + display (inline-block)</span>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam soluta sit, ex placeat dolorem, iure cupiditate totam illum perspiciatis reiciendis architecto maiores! Alias placeat, illo eum officia quam non magnam?<br><br>
+            <hr>
+            <p>dibawah ada objek div6: bacground-color + width + heigth + display (inline-block) + visibility hidden </p>
+            <p>dan objek: span6: bacground-color + width + heigth + display (inline-block) + visibility hidden</p>
+            <div id="div6">div6: bacground-color + width + heigth + display (inline-block) + visibility hidden</div>
+            <span id="span6">span6: bacground-color + width + heigth + display (inline-block) + visibility hidden</span>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam soluta sit, ex placeat dolorem, iure cupiditate totam illum perspiciatis reiciendis architecto maiores! Alias placeat, illo eum officia quam non magnam?<br><br>
+            <hr>
+            <p>dibawah terdapat objek div7: bacground-color + width + heigth + display (none)</p>
+            <p>dan objek: span7: bacground-color + width + heigth + display (none) </p>
+            <div id="div7">div7: bacground-color + width + heigth + display (none) </div>
+            <span id="span7">span7: bacground-color + width + heigth + display (none) </span>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam soluta sit, ex placeat dolorem, iure cupiditate totam illum perspiciatis reiciendis architecto maiores! Alias placeat, illo eum officia quam non magnam?<br><br>
+
+            <!----------------------->       
+        </div>
+        <h2>Tampilan HTML</h2>
+
+        <div class="box" id="box2">
+            <xmp>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width">
+        <link rel="icon" type="image/png" href="images/myicon.png"> 
+        <style>             
+            #div1{
+                background-color: coral;
+            }
+            #span1{
+                background-color: blueviolet;
+            }
+            #div2{
+                background-color: coral;
+                width: 100px;
+                height: 100px;
+            }
+            #span2{
+                background-color: blueviolet;
+                width: 100px;
+                height: 100px;
+
+            }
+            #div3{
+                background-color: coral;
+                width: 100px;
+                height: 100px;
+                display: block;
+            }
+            #span3{
+                background-color: blueviolet;
+                width: 100px;
+                height: 100px;
+                display: block;
+
+            }
+            #div4{
+                background-color: coral;
+                width: 100px;
+                height: 100px;
+                display: inline;
+            }
+            #span4{
+                background-color: blueviolet;
+                width: 100px;
+                height: 100px;
+                display: inline;
+
+            }
+            #div5{                
+                background-color: coral;
+                width: 100px;
+                height: 100px;
+                display: inline-block;
+            }
+            #span5{                
+                background-color: blueviolet;
+                width: 100px;
+                height: 100px;
+                display: inline-block;
+
+            }
+            #div6{                
+                background-color: coral;
+                width: 100px;
+                height: 100px;
+                display: inline-block;
+                visibility: hidden;
+            }
+            #span6{                
+                background-color: blueviolet;
+                width: 100px;
+                height: 100px;
+                display: inline-block;
+                visibility: hidden;
+            }
+            #div7{                
+                background-color: coral;
+                width: 100px;
+                height: 100px;
+                display: none;
+            }
+            #span7{                
+                background-color: blueviolet;
+                width: 100px;
+                height: 100px;
+                display: none;                
+            }
+        </style>
+        <title>Materi 24</title>
+    </head>
+
+    <body>
+        <header>
+                        
+        </header>
+
+        <main>
+                
+        <!--tuliskan isi disini--> 
+            <div id="div1">div1: bacground-color</div>
+            <span id="span1">span1: bacground-color</span><br><br>
+
+            <div id="div2">div2: bacground-color + width + heigth</div>
+            <span id="span2">span2: bacground-color + width + heigth</span><br><br>
+
+            <div id="div3">div3: bacground-color + width + heigth + display (block)</div>
+            <span id="span3">span3: bacground-color + width + heigth + display (block)</span>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam soluta sit, ex placeat dolorem, iure cupiditate totam illum perspiciatis reiciendis architecto maiores! Alias placeat, illo eum officia quam non magnam?<br><br>
+            
+            <div id="div4">div4: bacground-color + width + heigth + display (block)</div>
+            <span id="span4">span4: bacground-color + width + heigth + display (block)</span>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam soluta sit, ex placeat dolorem, iure cupiditate totam illum perspiciatis reiciendis architecto maiores! Alias placeat, illo eum officia quam non magnam?<br><br>
+            
+            <div id="div5">div5: bacground-color + width + heigth + display (inline-block)</div>
+            <span id="span5">span5: bacground-color + width + heigth + display (inline-block)</span>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam soluta sit, ex placeat dolorem, iure cupiditate totam illum perspiciatis reiciendis architecto maiores! Alias placeat, illo eum officia quam non magnam?<br><br>
+            <hr>
+            <p>dibawah ada objek div6: bacground-color + width + heigth + display (inline-block) + visibility hidden </p>
+            <p>dan objek: span6: bacground-color + width + heigth + display (inline-block) + visibility hidden</p>
+            <div id="div6">div6: bacground-color + width + heigth + display (inline-block) + visibility hidden</div>
+            <span id="span6">span6: bacground-color + width + heigth + display (inline-block) + visibility hidden</span>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam soluta sit, ex placeat dolorem, iure cupiditate totam illum perspiciatis reiciendis architecto maiores! Alias placeat, illo eum officia quam non magnam?<br><br>
+            <hr>
+            <p>dibawah terdapat objek div7: bacground-color + width + heigth + display (none)</p>
+            <p>dan objek: span7: bacground-color + width + heigth + display (none) </p>
+            <div id="div7">div7: bacground-color + width + heigth + display (none) </div>
+            <span id="span7">span7: bacground-color + width + heigth + display (none) </span>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam soluta sit, ex placeat dolorem, iure cupiditate totam illum perspiciatis reiciendis architecto maiores! Alias placeat, illo eum officia quam non magnam?<br><br>
+        
+        </main>
+
+        <footer>
+            
+        </footer>
+
+    </body>
+</html>
+            </xmp>
+        </div>        
+        
+    </main>
+
+    <footer>
+        <hr>
+        author: Rahmat Hidayat<br>        
+        <small><a href="mailto:anplatma@gmail.com">anplatma@gmail.com</a></small>
+    </footer>
+
+    </body>
+</html>
