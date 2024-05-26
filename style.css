@@ -7,7 +7,7 @@ footer{
     padding: 3pt;
 }
 body{
-    background-color: aquamarine;
+    background-color: aquamarine;    
     margin: 10px;
 }
 #h1mat{border-style: none; color: black;background-color: white;text-shadow: none;}  
@@ -20,6 +20,8 @@ h1{
     border-color: blueviolet;
     text-shadow: 5px 3px 5px rgb(199, 157, 101),-5px -3px 5px white;     
 } 
+
+
 .box{
     background-color: aliceblue;
     max-height: 300px;
@@ -44,15 +46,28 @@ h1{
 }
 #boxIsi1{
     background-color: rgb(126, 231, 126);
-    width: fit-content;
-    
+    width: fit-content;  
 }
 #boxIsi2{
     background-color: rgb(244, 247, 248);
     width: fit-content;
-     
-    
+}
+
+a{text-decoration: none;}
+header a:link{
+    color: blue;
+    font-style: initial;    
+}
+header a:active{background-color: brown;}
+header a:visited{font-style: oblique;}
+header a:hover{
+    background-color:#52f132;
+    color: black;
+    font-size: larger;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; 
+    line-height: 30px;   
 } 
+header a:not(:hover){background-color:#4fcf6b;}
 
 
 
