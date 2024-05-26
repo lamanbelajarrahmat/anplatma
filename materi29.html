@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width">
+        <link rel="icon" type="image/png" href="images/myicon.png">       
+         <!--tag style untuk CSS Eksternal-->
+        <link rel="stylesheet" href="style.css">
+        <style>
+            a{text-decoration: none;}
+            a:link{
+                color: blue;
+                font-style: initial;    
+            }
+            a:active{background-color: brown;}
+            a:visited{font-style: oblique;}
+            a:hover{
+                background-color:rgb(229, 241, 50);
+                color: black;
+                font-size: larger;
+                font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+            }    
+        </style>
+        <title>Materi 29</title>
+    </head>
+
+    <body>
+        <header>
+            <h1>Selamat Datang </h1>
+            <h2 style="color: white;">di Laman Belajar Rahmat Hidayat</h2>           
+            <div style="background-color: rgb(180, 235, 164);max-width: max-content; padding: 5px;">
+                <a href="index.html">Home</a>
+            </div>          
+        </header>
+
+        <main>
+        <h2>Pelajaran 29: Pseudo Classes </h2>
+        Perhatikan perilaku link dibawah ini. Silahkan coba fahami cara kerjanya dengan mengamati kode HTML. Dan Lanjutkan pengamatan dengan kode CSS internal yg menggunakan Pseudo Class<br><br> 
+        <div class="box" id="box1">     
+            <a href="index.html">Home</a><br><br>
+            <!--daftar isi-->
+            
+                <a href="materi01.html">materi 01:Tag struktur HTML, Tag h, p, hr, br, pre</a><br>
+                <a href="materi02.html">materi 02:Tag a  </a><br>            
+                <a href="materi03.html">materi 03:Tag image  </a><br>
+                <a href="materi04.html">materi 04:Tag audio  </a><br> 
+                <a href="materi05.html">materi 05:Tag video  </a><br>
+                <a href="materi06.html">materi 06:ikon atau tag link  </a><br>
+                <a href="materi07.html">materi 07:Tag b, i, u,big, small, sub,sup  </a><br>
+                <a href="materi08.html">materi 08:Tag span, span  </a><br>
+                <a href="materi09.html">materi 09:Unordered List, Ordered List, Description List  </a><br>
+                <a href="materi10.html">materi 10:Table </a><br>
+                <a href="materi11.html">materi 11:Button with hyperlink, button with script  </a><br>
+                <a href="materi12.html">materi 12:Form  </a><br>
+                <a href="materi13.html">materi 13:Header and Footer  </a><br>
+                <a href="materi14.html">materi 14:CSS Inline  </a><br>
+                <a href="materi15.html">materi 15:CSS Internal  </a><br>
+                <a href="materi16.html">materi 16:CSS Eksternal  </a><br>
+                <a href="materi17.html">materi 17:Mewarnai menggunakan Color Name, RGB, HSL, HWB dan Hex  </a><br>
+                <a href="materi18.html">materi 18:Font  </a><br>
+                <a href="materi19.html">materi 19:Border  </a><br>
+                <a href="materi20.html">materi 20:Text Shadow and Box Shadow  </a><br>
+                <a href="materi21.html">materi 21:Margin  </a><br>
+                <a href="materi22.html">materi 22:Float Property    </a><br>
+                <a href="materi23.html">materi 23:OverFlow Property    </a><br>
+                <a href="materi24.html">materi 24:Display and Visibility Property    </a><br>
+                <a href="materi25.html">materi 25:Hight and Width Properties (va, vw, %, auto)    </a><br>
+                <a href="materi26.html">materi 26:Position </a><br>
+                <a href="materi27.html">materi 27:background-image </a><br>
+                <a href="materi28.html">materi 28:Combinator </a><br>
+        </div>
+        <h2>Tampilan HTML</h2>
+
+        <div class="box" id="box2">
+            <xmp>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width">
+        <link rel="icon" type="image/png" href="images/myicon.png">       
+            <!--tag style untuk CSS Eksternal-->
+        <link rel="stylesheet" href="style.css">
+        <style>
+            a{text-decoration: none;}
+            a:link{
+                color: blue;
+                font-style: initial;    
+            }
+            a:active{background-color: brown;}
+            a:visited{font-style: oblique;}
+            a:hover{
+                background-color:rgb(229, 241, 50);
+                color: black;
+                font-size: larger;
+                font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+            }    
+        </style>
+        <title>Materi 29</title>
+    </head>
+
+    <body>
+        <header>
+            <h1>Selamat Datang </h1>
+            <h2 style="color: white;">di Laman Belajar Rahmat Hidayat</h2>           
+            <div style="background-color: rgb(180, 235, 164);max-width: max-content; padding: 5px;">
+                <a href="index.html">Home</a>
+            </div><br><br>           
+        </header>
+
+        <main>
+        <h2>Pelajaran 29: Pseudo Classes </h2>         
+            <a href="index.html">Home</a><br><br>
+            <!--daftar isi-->
+            
+            <a href="materi01.html">materi 01:Tag struktur HTML, Tag h, p, hr, br, pre</a><br>
+            <a href="materi02.html">materi 02:Tag a  </a><br>            
+            <a href="materi03.html">materi 03:Tag image  </a><br>
+            <a href="materi04.html">materi 04:Tag audio  </a><br> 
+            <a href="materi05.html">materi 05:Tag video  </a><br>
+            <a href="materi06.html">materi 06:ikon atau tag link  </a><br>
+            <a href="materi07.html">materi 07:Tag b, i, u,big, small, sub,sup  </a><br>
+            <a href="materi08.html">materi 08:Tag span, span  </a><br>
+            <a href="materi09.html">materi 09:Unordered List, Ordered List, Description List  </a><br>
+            <a href="materi10.html">materi 10:Table </a><br>
+            <a href="materi11.html">materi 11:Button with hyperlink, button with script  </a><br>
+            <a href="materi12.html">materi 12:Form  </a><br>
+            <a href="materi13.html">materi 13:Header and Footer  </a><br>
+            <a href="materi14.html">materi 14:CSS Inline  </a><br>
+            <a href="materi15.html">materi 15:CSS Internal  </a><br>
+            <a href="materi16.html">materi 16:CSS Eksternal  </a><br>
+            <a href="materi17.html">materi 17:Mewarnai menggunakan Color Name, RGB, HSL, HWB dan Hex  </a><br>
+            <a href="materi18.html">materi 18:Font  </a><br>
+            <a href="materi19.html">materi 19:Border  </a><br>
+            <a href="materi20.html">materi 20:Text Shadow and Box Shadow  </a><br>
+            <a href="materi21.html">materi 21:Margin  </a><br>
+            <a href="materi22.html">materi 22:Float Property    </a><br>
+            <a href="materi23.html">materi 23:OverFlow Property    </a><br>
+            <a href="materi24.html">materi 24:Display and Visibility Property    </a><br>
+            <a href="materi25.html">materi 25:Hight and Width Properties (va, vw, %, auto)    </a><br>
+            <a href="materi26.html">materi 26:Position    </a><br>
+            <a href="materi27.html">materi 27:background-image    </a><br>
+            <a href="materi28.html">materi 28:Combinator 
+    </main>
+
+    <footer>
+        <hr>
+        author: Rahmat Hidayat<br>        
+        <small><a href="mailto:anplatma@gmail.com">anplatma@gmail.com</a></small>
+    </footer>
+
+    </body>
+</html>
+            </xmp>
+        </div>        
+        
+    </main>
+
+    <footer>
+        <hr>
+        author: Rahmat Hidayat<br>        
+        <small><a href="mailto:anplatma@gmail.com">anplatma@gmail.com</a></small>
+    </footer>
+
+    </body>
+</html>

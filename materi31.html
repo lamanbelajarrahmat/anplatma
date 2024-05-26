@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width">
+        <link rel="icon" type="image/png" href="images/myicon.png">       
+         <!--tag style untuk CSS Eksternal-->
+        <link rel="stylesheet" href="style.css">
+        <style>
+            h3::first-letter{
+                font-size: 3em;
+                font-style: italic;                
+            }
+            p::first-line{background-color: cornflowerblue;}
+            p::selection{background-color: rgb(190, 142, 84);}
+            #fruit li::before{
+                content: "🌳";
+            }
+            #fruit li::marker{
+                content: "✔";
+                color: darkgreen;
+            }
+            #apple::after{content: "🍎";}
+            #orange::after{content:"🍊";}
+            #banana::after{content: "🍌";}
+        </style>
+        <title>Materi 31</title>
+    </head>
+
+    <body>
+        <header>
+            <h1>Selamat Datang </h1>
+            <h2 style="color: white;">di Laman Belajar Rahmat Hidayat</h2>           
+            <div style="background-color: rgb(180, 235, 164);max-width: max-content; padding: 5px;">
+                <a href="index.html">Home</a>
+            </div>          
+        </header>
+
+        <main>
+        <h2>Pelajaran 31: Pseudo Elemen </h2>
+        <div class="box" id="box1">        
+            <h3>Hello</h3>
+            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Molestias facere libero, at inventore dignissimos nemo sequi soluta, veniam animi quae amet expedita odit laborum explicabo doloribus corporis harum rem asperiores.</p>
+            <ul id="fruit">
+                <li id="apple">apple</li>
+                <li id="orange">orange</li>
+                <li id="banana">banana</li>
+            </ul>
+        </div>
+        <h2>Tampilan HTML</h2>
+
+        <div class="box" id="box2">
+            <xmp>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width">
+        <link rel="icon" type="image/png" href="images/myicon.png">       
+            <!--tag style untuk CSS Eksternal-->
+        <link rel="stylesheet" href="style.css">
+        <style>
+            h3::first-letter{
+                font-size: 3em;
+                font-style: italic;                
+            }
+            p::first-line{background-color: cornflowerblue;}
+            p::selection{background-color: rgb(190, 142, 84);}
+            #fruit li::before{
+                content: "🌳";
+            }
+            #fruit li::marker{
+                content: "✔";
+                color: darkgreen;
+            }
+            #apple::after{content: "🍎";}
+            #orange::after{content:"🍊";}
+            #banana::after{content: "🍌";}
+        </style>
+        <title>Materi 31</title>
+    </head>
+
+    <body>
+        <header>
+                        
+        </header>
+
+        <main>
+        <h2>Pelajaran 31: Pseudo Elemen </h2>        
+            <h3>Hello</h3>
+            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Molestias facere libero, at inventore dignissimos nemo sequi soluta, veniam animi quae amet expedita odit laborum explicabo doloribus corporis harum rem asperiores.</p>
+            <ul id="fruit">
+                <li id="apple">apple</li>
+                <li id="orange">orange</li>
+                <li id="banana">banana</li>
+            </ul>       
+        
+    </main>
+
+    <footer>
+        
+    </footer>
+
+    </body>
+</html>
+            </xmp>
+        </div>        
+        
+    </main>
+
+    <footer>
+        <hr>
+        author: Rahmat Hidayat<br>        
+        <small><a href="mailto:anplatma@gmail.com">anplatma@gmail.com</a></small>
+    </footer>
+
+    </body>
+</html>
