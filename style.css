@@ -65,9 +65,28 @@ header a:hover{
     color: black;
     font-size: larger;
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; 
-    line-height: 30px;   
+    line-height: 30px; 
+    border-radius: 5px;  
+    padding: 5px 10px;
 } 
 header a:not(:hover){background-color:#4fcf6b;}
+.pagination{
+    text-align: center;
+}
+.pagination a{
+    color: black;
+    text-decoration: none;
+    padding: 8px 15px;
+    display: inline-block;
+}
+.pagination a.active{
+    background-color: rgb(60, 173, 60);
+    font-weight: bold;
+    border-radius: 5px;
+}
+.pagination a:hover:not(.active){
+    background-color: grey;
+}
 
 
 
