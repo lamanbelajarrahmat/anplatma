@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width">
+        <link rel="icon" type="image/png" href="images/myicon.png">       
+         <!--tag style untuk CSS Eksternal-->
+        <link rel="stylesheet" href="style.css">
+        <style>
+            *{box-sizing: border-box;}
+            #box1 body{
+                background-color: white;
+                margin: 0;
+                padding: 0;
+            }           
+            #box1 header{
+                background-color: hsl(0, 0%, 86%);
+                text-align: center;
+                padding: 25px;
+            }
+            #box1 .navbar{
+                background-color: hsl(0, 0%, 15%);
+                height: 50px;
+                
+            }
+            #box1 aside{
+                width: 20%;
+                float: left; 
+                padding: 10px;                               
+            }
+            #box1 section{
+                width: 40%;
+                float: left;  
+                padding: 10px;                               
+            }
+            #box1 article{
+                width: 40%;
+                float: left;  
+                padding: 10px;                                
+            }
+            #box1 footer{
+                display: block;
+                clear: both;
+                background-color: hsl(0, 0%, 86%);
+                text-align: center;
+                padding: 25px;
+            } 
+            @media screen and (max-width:600px){
+                #box1 aside, #box1 section, #box1 article{
+                    width: 100%;
+                }
+            }
+            
+                      
+        </style>
+        <title>Materi 35</title>
+    </head>
+
+    <body>
+        <header>
+            <h1>Selamat Datang </h1>
+            <h2 style="color: white;">di Laman Belajar Rahmat Hidayat</h2>           
+            <div style="background-color: rgb(180, 235, 164);max-width: max-content; padding: 5px;">
+                <a href="index.html">Home</a>
+            </div>          
+        </header>
+
+        <main>
+        <h2>Pelajaran 35: Website Layout </h2>
+        <div class="box" id="box1">        
+            <body>
+                <header>
+                    <h2>Header</h2>
+                </header>
+                <nav class="navbar"></nav>
+
+                <main>
+                    <aside>
+                        <h2>This is a aside</h2>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos commodi at veniam cupiditate, quod, repellendus minima alias molestias vel fuga reiciendis libero repudiandae, doloremque ipsum? Velit qui nemo reiciendis cumque!</p>
+                    </aside>
+                        
+                    <section>
+                        <h2>This is a section</h2>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos commodi at veniam cupiditate, quod, repellendus minima alias molestias vel fuga reiciendis libero repudiandae, doloremque ipsum? Velit qui nemo reiciendis cumque!</p>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos commodi at veniam cupiditate, quod, repellendus minima alias molestias vel fuga reiciendis libero repudiandae, doloremque ipsum? Velit qui nemo reiciendis cumque!</p>
+                    </section>
+                        
+                    <article>
+                        <h2>This is a article</h2>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos commodi at veniam cupiditate, quod, repellendus minima alias molestias vel fuga reiciendis libero repudiandae, doloremque ipsum? Velit qui nemo reiciendis cumque!</p>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos commodi at veniam cupiditate, quod, repellendus minima alias molestias vel fuga reiciendis libero repudiandae, doloremque ipsum? Velit qui nemo reiciendis cumque!</p>
+                    </article>
+                        
+                </main>
+        
+                
+        
+                <footer>
+                    <h2>Footer</h2>
+                </footer>
+        
+            </body>
+        </div>
+        <h2>Tampilan HTML</h2>
+
+        <div class="box" id="box2">
+            <xmp>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width">
+        <link rel="icon" type="image/png" href="images/myicon.png">       
+            <!--tag style untuk CSS Eksternal-->
+        <link rel="stylesheet" href="style.css">
+        <style>
+            *{box-sizing: border-box;}
+                      
+            header{
+                background-color: hsl(0, 0%, 86%);
+                text-align: center;
+                padding: 25px;
+            }
+            .navbar{
+                background-color: hsl(0, 0%, 15%);
+                height: 50px;
+                
+            }
+            aside{
+                width: 20%;
+                float: left; 
+                padding: 10px;                               
+            }
+            section{
+                width: 40%;
+                float: left;  
+                padding: 10px;                               
+            }
+            article{
+                width: 40%;
+                float: left;  
+                padding: 10px;                                
+            }
+            footer{
+                display: block;
+                clear: both;
+                background-color: hsl(0, 0%, 86%);
+                text-align: center;
+                padding: 25px;
+            }
+            @media screen and (max-width:600px){
+                #box1 aside, #box1 section, #box1 article{
+                    width: 100%;
+                }
+            }
+
+            
+        </style>
+        <title>Materi 35</title>
+    </head>
+
+    
+        <header>
+            <h2>Header</h2>
+        </header>
+        <nav class="navbar"></nav>
+        <main>
+            <aside>
+                <h2>This is a aside</h2>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos commodi at veniam cupiditate, quod, repellendus minima alias molestias vel fuga reiciendis libero repudiandae, doloremque ipsum? Velit qui nemo reiciendis cumque!</p>
+            </aside>
+                
+            <section>
+                <h2>This is a section</h2>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos commodi at veniam cupiditate, quod, repellendus minima alias molestias vel fuga reiciendis libero repudiandae, doloremque ipsum? Velit qui nemo reiciendis cumque!</p>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos commodi at veniam cupiditate, quod, repellendus minima alias molestias vel fuga reiciendis libero repudiandae, doloremque ipsum? Velit qui nemo reiciendis cumque!</p>
+            </section>
+                
+            <article>
+                <h2>This is a article</h2>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos commodi at veniam cupiditate, quod, repellendus minima alias molestias vel fuga reiciendis libero repudiandae, doloremque ipsum? Velit qui nemo reiciendis cumque!</p>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos commodi at veniam cupiditate, quod, repellendus minima alias molestias vel fuga reiciendis libero repudiandae, doloremque ipsum? Velit qui nemo reiciendis cumque!</p>
+            </article>
+                
+            </main>
+
+        
+
+        <footer>
+            <h2>Footer</h2>
+        </footer>
+
+    
+</html>
+            </xmp>
+        </div>        
+        
+        <div class="pagination">
+            <a href="materi34.html"><</a>
+            <a href="materi31.html">31</a>
+            <a href="materi32.html">32</a>
+            <a href="materi33.html">33</a>
+            <a href="materi34.html">34</a>
+            <a href="materi35.html" class="active">35</a>
+            <a href="materi36.html">></a>
+        </div>
+        </main>
+
+        <footer>
+            <hr>
+            author: Rahmat Hidayat<br>        
+            <small><a href="mailto:anplatma@gmail.com">anplatma@gmail.com</a></small>
+        </footer>
+
+    </body>
+</html>
