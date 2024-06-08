@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width">
+        <link rel="icon" type="image/png" href="images/myicon.png">       
+         <!--tag style untuk CSS Eksternal-->
+        <link rel="stylesheet" href="style.css">
+        <style>
+            .boxx{
+                width: 150px;
+                height: 150px;
+                border: 1px solid;
+                font-size: 1em;
+                text-align: center; 
+                
+
+                       
+                background-color: rgb(101, 218, 101);
+            }
+            #boxx1{                
+                transform: translateX(0px);
+                
+            }
+            #boxx2{                
+                transform: translateX(100px);
+                
+            }
+            #boxx3{                
+                transform: translateX(200px);
+            }
+            #boxx4{                
+                transform: translateY(0px);
+                
+            }
+            #boxx5{  
+                transform: translateY(20px);              
+                
+            }
+            #boxx6{  
+                transform: translate(20px,20px)
+            }
+            #boxx7{  
+                transform: rotateX(30deg)
+            }
+            #boxx8{  
+                transform: rotateY(30deg)
+            }
+            #boxx9{  
+                transform: rotateZ(30deg)
+            }
+            #boxx10{  
+                transform: scaleX(2)
+            }
+            #boxx11{  
+                transform: scaleY(2)
+            }
+            #boxx12{  
+                transform: scaleZ(2)
+            }
+            #boxx13{  
+                transform: scale(1,2)
+            }
+            #boxx14{  
+                transform: skewX(45deg)
+            }
+            #boxx15{  
+                transform: translateX(100%) translateY(100%) rotateZ(90deg)
+            }
+        </style>
+        <title>Materi 38</title>
+    </head>
+
+    <body>
+        <header>
+            <h1>Selamat Datang </h1>
+            <h2 style="color: white;">di Laman Belajar Rahmat Hidayat</h2>           
+            <div style="background-color: rgb(180, 235, 164);max-width: max-content; padding: 5px;">
+                <a href="index.html">Home</a>
+            </div>          
+        </header>
+
+        <main>
+        <h2>Pelajaran 38: Transformation </h2>
+              
+            <div class="boxx" id="boxx1">1:translateX(0px)</div> 
+            <div class="boxx" id="boxx2">2:translateX(100px)</div>
+            <div class="boxx" id="boxx3">3:translateX(200px)</div>
+            <div class="boxx" id="boxx4">4:translateY(0px)</div>  
+            <div class="boxx" id="boxx5">5:translateY(20px)</div>
+            <div class="boxx" id="boxx6">6:translateXY(20px,20px) + 3spasi</div><br><br><br>
+            <div class="boxx" id="boxx7">7:rotateX(30deg)</div>
+            <div class="boxx" id="boxx8">8:rotateY(30deg)</div>
+            <div class="boxx" id="boxx9">9.rotateZ(30deg)</div>
+            <div class="boxx" id="boxx10">10.scaleX(2) + 6 spasi</div><br><br><br><br><br><br>
+            <div class="boxx" id="boxx11">11.scaleY(2)</div>
+            <div class="boxx" id="boxx12">12.scaleZ(2) + 6 spasi</div><br><br><br><br><br><br>
+            <div class="boxx" id="boxx13">13.scale(1,2)  + 6 spasi</div><br><br><br><br><br><br>
+            <div class="boxx" id="boxx14">14.skewX(45deg)</div>
+            <div class="boxx" id="boxx15">15.translateX(100%) translateY(100%) rotateZ(90deg) + 5 spasi</div><br><br><br><br><br><br><br><br><br><br><br><br>
+            
+        <h2>Tampilan HTML</h2>
+
+        <div class="box" id="box2">
+            <xmp>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width">
+        <link rel="icon" type="image/png" href="images/myicon.png"> 
+        <style>
+            .boxx{
+                width: 150px;
+                height: 150px;
+                border: 1px solid;
+                font-size: 1em;
+                text-align: center; 
+                background-color: rgb(101, 218, 101);
+            }
+            #boxx1{                
+                transform: translateX(0px);
+            }
+            #boxx2{                
+                transform: translateX(100px);
+            }
+            #boxx3{                
+                transform: translateX(200px);
+            }
+            #boxx4{                
+                transform: translateY(0px);
+            }
+            #boxx5{  
+                transform: translateY(20px);  
+            }
+            #boxx6{  
+                transform: translate(20px,20px)
+            }
+            #boxx7{  
+                transform: rotateX(30deg)
+            }
+            #boxx8{  
+                transform: rotateY(30deg)
+            }
+            #boxx9{  
+                transform: rotateZ(30deg)
+            }
+            #boxx10{  
+                transform: scaleX(2)
+            }
+            #boxx11{  
+                transform: scaleY(2)
+            }
+            #boxx12{  
+                transform: scaleZ(2)
+            }
+            #boxx13{  
+                transform: scale(1,2)
+            }
+            #boxx14{  
+                transform: skewX(45deg)
+            }
+            #boxx15{  
+                transform: translateX(100%) translateY(100%) rotateZ(90deg)
+            }
+        </style>
+        <title>Materi 38</title>
+    </head>
+
+    <body>
+        <header>
+                    
+        </header>
+
+        <main>        
+                
+            <div class="boxx" id="boxx1">1:translateX(0px)</div> 
+            <div class="boxx" id="boxx2">2:translateX(100px)</div>
+            <div class="boxx" id="boxx3">3:translateX(200px)</div>
+            <div class="boxx" id="boxx4">4:translateY(0px)</div>  
+            <div class="boxx" id="boxx5">5:translateY(20px)</div>
+            <div class="boxx" id="boxx6">6:translateXY(20px,20px) + 3spasi</div><br><br><br>
+            <div class="boxx" id="boxx7">7:rotateX(30deg)</div>
+            <div class="boxx" id="boxx8">8:rotateY(30deg)</div>
+            <div class="boxx" id="boxx9">9.rotateZ(30deg)</div>
+            <div class="boxx" id="boxx10">10.scaleX(2) + 6 spasi</div><br><br><br><br><br><br>
+            <div class="boxx" id="boxx11">11.scaleY(2)</div>
+            <div class="boxx" id="boxx12">12.scaleZ(2) + 6 spasi</div><br><br><br><br><br><br>
+            <div class="boxx" id="boxx13">13.scale(1,2)  + 6 spasi</div><br><br><br><br><br><br>
+            <div class="boxx" id="boxx14">14.skewX(45deg)</div>
+            <div class="boxx" id="boxx15">15.translateX(100%) translateY(100%) rotateZ(90deg) + 5 spasi</div><br><br><br><br><br><br><br><br><br><br><br><br>
+             
+    </main>
+
+    <footer>
+        
+    </footer>
+
+    </body>
+</html>
+            </xmp>
+        </div>
+        <h2>Tampilan CSS Eksternal</h2>
+
+        <div class="box" id="box3">
+            <xmp>
+
+            </xmp>
+        </div>
+        
+    </main>
+
+    <footer>
+        <hr>
+        author: Rahmat Hidayat<br>        
+        <small><a href="mailto:anplatma@gmail.com">anplatma@gmail.com</a></small>
+    </footer>
+
+    </body>
+</html>
