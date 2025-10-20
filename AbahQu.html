@@ -1,0 +1,645 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="manifest" href="manifest.json">
+  <title>ABAHQU Lev.1p</title>
+  <style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;        
+      }
+
+     h1 {
+      color: #3498db;
+      margin-bottom: 20px;
+      margin-bottom: 0; 
+      padding-bottom: 0;
+      font-style:bold;
+     }
+     .inputSelect {
+      margin-top:10px;
+      padding: 8px;
+      width:100%;
+      border-radius: 5px;
+      border: 1px solid #ccc; 
+      font-size: 18px;      
+      text-align:center;
+     } 
+    
+     #fileInput {     
+      padding: 8px;
+      width: 100%;
+      border-radius: 5px;
+      border: 1px solid #ccc; 
+      font-size:18px;
+     } 
+     .flexDivInput{      
+      display: flex;
+      flex-wrap:wrap;        
+      margin-top: 10px; 
+      margin-bottom:10px;         
+      font-size: 18px;   
+      
+     }
+     .flexDiv{      
+      display: flex;
+      flex:2;
+      gap: 10px;
+      margin-top: 10px; 
+      margin-bottom:10px;         
+      font-size: 18px; 
+            
+    }  
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f9;
+      color: #333;
+      display: flex;
+      flex-direction: column;
+      align-items: center;      
+      height: 100vh;
+
+    }
+    #audioPlayer {
+      margin-top: 10px;
+      margin-bottom: 10px;
+      width: 100%;
+      
+    }
+    .container {
+      background-color: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      text-align:center;
+      max-width: 600px;  
+      margin:10px;        
+    }
+    
+    .button:hover {
+      background-color: #2980b9;
+    }
+
+    #divStopPrevNext{      
+      display: flex;      
+      gap: 10px;
+      margin-top: 10px; 
+      margin-bottom: 10px;        
+    }
+
+    .stopPrevNext {
+      width: 100%;
+      font-size: 18px; 
+      background-color: #3498db;
+      color: white;
+      padding: 10px 0px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 5px;   
+    }
+
+    .tombolService {
+      margin-top: 20px; 
+      border: 1px solid #3498db; 
+      font-size: 15px;  
+      background-color: white; 
+      color: black;
+      padding: 5px;      
+    }
+
+    .apm_max {
+      display: none;
+      border: none; 
+      background-color: white; 
+      padding: 0; 
+      color: rgb(39, 37, 37);
+    }
+
+    .apm_baru{
+      width: 30px; 
+      display: none; 
+      text-align: right;
+    }
+
+    .apm {
+      border: 1px solid darkgray; 
+      padding: 2px; 
+      margin-left: 2px;
+    }    
+
+</style>
+</head>
+<body>
+  <div class="container">
+    <h1 >ABAHQU <span style="font-size: 20px;">Lev.1p</span></h1>
+    <p style="margin-bottom: 30px; padding-top: 0;">Alat Bantu Hafalan & Muraja'ah AlQuran</p>
+    <input type="file" id="fileInput" multiple >
+    <div class="flexDiv" >
+      <div class="flexDivInput">
+        <label style="width: 100%;" for="mode">Mode: </label>
+        <select class="inputSelect" id="mode">  
+            <option value="" selected="true">-- Pilih Mode --</option>          
+            <option value="db">dengar & baca</option>
+            <option value="bd">baca & dengar</option>
+            <option value="ds">dengar saja</option>
+            <option value="d1">dengar ayat ganjil</option>
+            <option value="d2">dengar ayat genap</option>            
+            
+        </select>
+      </div>
+      <div class="flexDivInput">
+        <label style="width: 100%;" for="putaran">Putaran: </label>        
+        <select class="inputSelect" id="putaran">
+            <option value=1>1</option>
+            <!-- Pilihan putaran akan ditambahkan secara dinamis -->
+        </select> 
+      </div>     
+    </div>
+    <div id="divGanjilGenap" style="display: none;">
+      <label for="modeGanjilGenap">mode ganjil-genap:</label>
+      <input type="checkbox" id="modeGanjilGenap">
+    </div>
+    <audio id="audioPlayer" controls ></audio><br>
+    <div id="ketPlayer" class="flexDivInput">
+      <div id="indikatorAudio">Belum ada file</div> 
+      <div>
+        <label class="apm" id="audioKe" >a 0/0</label>      
+        <label class="apm" id="putaranKe" >p 0/0</label> 
+        <label class="apm" id="frekMode" >m 0/0</label>      
+      </div>
+    </div>
+
+    <div class="flexDiv">
+      <label id="petunjukUbah" style="display: none;">a, p, m :</label>
+      <input class="apm_baru" id="a_Baru" type="number">
+      <button class="apm_max" id="a_max"  ></button>
+      <input class="apm_baru" id="p_Baru" type="number">
+      <button class="apm_max" id="p_max" ></button>
+      <input class="apm_baru" id="m_Baru" type="number">
+      <button class="apm_max" id="m_max" ></button>
+      <button id="simpanCounterBaru" style="display: none;">OK</button>
+    </div>
+    <div id="divStopPrevNext">
+      <button class="stopPrevNext" id="stopButton" >Stop</button>
+      <button class="stopPrevNext" id="prevButton" >prev</button>
+      <button class="stopPrevNext" id="nextButton" >next</button>
+    </div>    
+    
+    <button class="tombolService" id="tombolFitur"  style="display:none;" >Fitur</button>
+    <button class="tombolService" id="tombolRuteku" style="display:none;" >ruteku</button>
+    <button class="tombolService" id="tombolCatatan" >Refleksi</button>
+    <button class="tombolService" id="tombolCaranya" >Caranya?</button>
+    
+    <div >    
+      <div id="isiFitur" style="display:none;">    
+        <ul style="text-align: left;margin: 10px; ">      
+          <li>[.........Lev.1_] sudah bisa menjalankan 1 file</li>
+          <li>[.........Lev.1_] URL dibuat dengan mengklik tombol input (browse)</li>
+          <li>[.........Lev.1_] file audio dijalankan setelah mengklik tombol "play" pada player</li>
+          <li>[.........Lev.1_] setelah file selesai, bisa dijalankan lagi dg menekan tombol play  </li>
+          <li>[.........Lev.1a] menampilkan indikator file audio siap dijalankan, setelah tombol browse/input diproses</li>
+          <li>[.........Lev.1a] sudah bisa mengupload banyak file </li>
+          <li>[.........Lev.1b] menampilkan nama file jika tombol play di klik, sebagai indikator bahwa file tersebut sedang diputar</li>    
+          <li>[.........Lev.1c] sudah bisa menjalankan banyak file </li>
+          <li>[.........Lev.1c] setelah audio 1 selesai, langsung memutar audio 2, begitu seterusnya </li>
+          <li>[.........Lev.1d] setelah semua file selesai diputar, player langsung kembali memutar file audio pertama </li>
+          <li>[.........Lev.1e] Tombol stop, prev dan next sudah tersedia dan bisa digunakan </li>
+          <li>[.........Lev.1f] tersedia pilihan mode dan pilihan jumlah putaran, namun belum berfungsi </li>
+          <li>[.........Lev.1g] tersedia fungsi pengkondisian 'jumlah pengulangan' berdasarkan pilihan 'mode' </li>
+          <li>[.........Lev.1g] tersedia fungsi konversi 'jumlah pengulangan' ke 'sekali/berulangkali' saat merubah nilai 'mode' dan 'ulang' </li>
+          <li>[.........Lev.1h] input mode dan Ulang dipindahkan keatas input file, dibawah baris judul' </li>
+          <li>[.........Lev.1h] mode ds (sekali atau berulang) sudah bisa berfungsi </li>
+          <li>[.........Lev.1i] ada penambahan indikator file ke / jumlah file, symbol a 0/0 = audio </li>
+          <li>[.........Lev.1i] ada penambahan indikator pengulangan ke / jumlah pengulangan berdasarkan pilihan Mode, symbol m 0/0 = mode </li>
+          <li>[.........Lev.1i] ada penambahan indikator putaran ke / jumlah putaran, symbol p 0/0 = putaran </li>
+          <li>[.........Lev.1i] ada sedikit penyesuaian layout  </li>
+          <li>[.........Lev.1j] mode d1 (dengar audi ganjil), dan mode d2 (dengar audio genap) sudah bisa berjalan  </li>
+          <li>[.........Lev.1k] mode db (dengar dan baca) serta mode bd (baca dan dengar) untuk satu putaran sudah bisa berjalan </li>
+          <li>[.........Lev.1k] ada tambahan fitur 'ruteku', berguna untuk mentracking pembacaan coding oleh website  </li>
+          <li>[.........Lev.1k] penambahan function 'pengaturanVolume', untuk penyederhanaan script</li>
+          <li>[.........Lev.1l] penambahan function aktif/nonaktifkan fungsi 'ruteku', beserta warna indikatornya </li>
+          <li>[.........Lev.1l] penambahan function 'juruHitung' sebagai counter file, putaran, angka-mode  </li>
+          <li>[.........Lev.1l] kendala: pada kasus audio di stop, kemudian ganti mode, maka angka 'juruHitung' jadi berlebih  </li>        
+          <li>[.........Lev.1m] perbaikan fungsi dan penempatan function ' juruHitung'  </li>   
+          <li>[.........Lev.1m] perbaikan penempatan function 'pengaturanVolume'</li>  
+          <li>[.........Lev.1m] fitur db (dengar dan baca) untuk banyak putaran sudah bisa berjalan</li>   
+          <li>[.........Lev.1n] fitur bd (baca dan dengar) untuk banyak putaran sudah bisa berjalan</li>   
+          <li>[.........Lev.1n] penambahan fitur ubah nilai counter</li> 
+          <li>[.........Lev.1o] sudah menggunakan pewarnaan</li> 
+          <li>[.........Lev.1o] tombol updatePerulangan di hilangkan, fungsinya dipindahkan ke tombol perulangan</li>
+          <li>[.........Lev.1o] konversi inline CSS ke internal CSS</li>
+          <li>[baru..Lev.1p] penambahan fitur 'genap-ganjil' jika diaktifkan maka mode genap dan ganjil akan dijalanakan bergantian</li>
+          <li>[baru..Lev.1p] penambahan fitur catatan, tempat menuliskan ide</li>
+          <li>[baru..Lev.1p] ganti fitur catatan menjadi refleksi, isi dukungan pengawas dan kepsek beserta link</li>
+        </ul>
+      </div>    
+      <div id="rute" style="text-align: left;margin: 10px;"></div> 
+      <div id="isiCatatan" style="display:none; border: 1px solid darkgray; padding: 2px; max-width: 358px;" >
+        
+          <div style="text-align: left;margin: 10px;"> Dukungan Pengawas SMP Dinas Pendidikan dan Kebudayaan Kota Padang <a href="https://web.facebook.com/share/v/19hQEhB7P9/" target='_blank'>disini</a></div>
+          <div style="text-align: left;margin: 10px;"> Dukungan Kepala SMP Perguruan Islam Ar Risalah <a href="https://www.instagram.com/reel/DPzrYAsk32A/?igsh=MWFpdnF5aXBsdDNqeQ==" target='_blank'>disini</a></div>
+          <div style="text-align: left;margin: 10px;"> Video Membangun Abahqu metode STAR <a href="https://youtu.be/i5LwM_63_AA?si=mLa2YLaNi-8IZNOB" target='_blank'>disini</a></div>
+          
+      </div>  
+      <div id="isiCaranya" style="display:none; border: 1px solid darkgray; padding: 2px; max-width: 358px;" >            
+            <div style="text-align: left;margin: 10px;  background-color: #c3cbdd; ">silahkan unduh terlebih dahulu aplikasi AbahQu (AbahQu.html) di <a href="https://drive.google.com/drive/folders/1F1bmBAnfdk_dsPeF2UcNdNPr4Ov9a7iv?usp=drive_link" target='_blank'>drive</a>. jika belum ada. <i>Catatan: file AbahQu.html kemungkinan tidak bisa berjalan sempurna jika langsung dijalankan dari drive</i></div>
+            <div style="text-align: left;margin: 10px; ">jika di hp atau laptop belum ada mp3 quran per-ayat, maka silahkan unduh di <a href="https://drive.google.com/drive/folders/1F1bmBAnfdk_dsPeF2UcNdNPr4Ov9a7iv?usp=drive_link" target='_blank'>drive</a> Silahkan pilih ayat2 yang dibutuhkan saja. Penamaan file 001001 berarti surat ke 1 ayat ke 1. Jika ingin memilih qori lain silahkan kunjungi website: <a href="https://everyayah.com/" target='_blank'>disini</a>. Jika unduhan berupa file zip atau rar, silahkan di ekstrak terlebih dahulu</div>
+            <div style="text-align: left;margin: 10px;  background-color: #c3cbdd;  ">cari aplikasi yang sudah diunduh, lalu klik 2x</div>
+            <div style="text-align: left;margin: 10px; ">jika aplikasi sudah terbuka, silahkan buat shortcut ke halaman depan, untuk memudahkan penggunaan saja, tidak harus.</div>
+            <div style="text-align: left;margin: 10px;  background-color: #c3cbdd; ">Klik tombol Browse untuk memilih file yang akan dijalankan</div>
+            <div style="text-align: left;margin: 10px; ">Klik tombol Mode untuk memilih Mode</div>
+            <div style="text-align: left;margin: 10px;  background-color: #c3cbdd; ">klik tombol putaran untuk memilih pengulangan</div>
+            <div style="text-align: left;margin: 10px; ">klik ikon play untuk menjalankan</div>
+            <div style="text-align: left;margin: 10px;  background-color: #c3cbdd; ">jangan lupa isi buku kunjungan</div>        
+      </div>   
+    </div> 
+    <div style="text-align: center; margin: 10px;"> isi buku kunjungan <a href="https://forms.gle/jZuu1zWXDf5Sw3km9" target='_blank'>disini</a></div>
+</div> 
+ 
+  
+  <script>
+                                                                    
+    const fileInput = document.getElementById('fileInput');    //deklarasi fileInput, audioPlayer, dan indikatorAudio diambil dari id yg sesuai
+    const audioPlayer = document.getElementById('audioPlayer');
+    const indikatorAudio = document.getElementById('indikatorAudio');
+    const audioKe = document.getElementById('audioKe');
+    const frekMode = document.getElementById('frekMode');
+    const putaranKe = document.getElementById('putaranKe');
+    const catatan = document.getElementById('catatan');
+    const stopButton = document.getElementById('stopButton');
+    const prevButton = document.getElementById('prevButton');
+    const nextButton = document.getElementById('nextButton');
+    const mode = document.getElementById('mode');    
+    const putaran = document.getElementById('putaran');
+    const tombolFitur = document.getElementById('tombolFitur');
+    const isiFitur = document.getElementById('isiFitur');
+    const rute = document.getElementById('rute');    
+    const simpanCounterBaru = document.getElementById('simpanCounterBaru');
+    const petunjukUbah = document.getElementById('petunjukUbah');
+    const a_Baru = document.getElementById('a_Baru');
+    const p_Baru = document.getElementById('p_Baru');
+    const m_Baru = document.getElementById('m_Baru');
+    const a_max = document.getElementById('a_max');  
+    const p_max = document.getElementById('p_max');  
+    const m_max = document.getElementById('m_max');
+    const modeGanjilGenap = document.getElementById('modeGanjilGenap');
+    const divGanjilGenap = document.getElementById('divGanjilGenap');
+    const tombolCatatan = document.getElementById('tombolCatatan');
+    const isiCatatan = document.getElementById('isiCatatan');  
+    const tombolCaranya = document.getElementById('tombolCaranya');  
+    const isiCaranya = document.getElementById('isiCaranya');    
+
+    let tipe;    
+    let frekuensi;     
+    let varrayFile = [];
+    let nomor = 0;    
+    let dahPutar = 1; 
+    let sembunyikan = "ya";
+    let angkaFrekMode = 0;
+    let frekModeKe = 1;
+    let semuaRuteku = "";
+    let a;
+    let aktifkanRute = false;
+
+    switch (mode.value){                                        // konversi: mode ke tipe
+      case "bd": tipe = "2x"; angkaFrekMode = 2; break;
+      case "db": tipe = "2x"; angkaFrekMode = 2; break;
+      case "ds": tipe = "1x"; angkaFrekMode = 1; break;
+      case "d1": tipe = "1x"; angkaFrekMode = 1; break;
+      case "d2": tipe = "1x"; angkaFrekMode = 1; break;      
+    }
+
+    tampilkanDivGanjilGenap()    
+    frekMode.textContent = `m 0/${angkaFrekMode}`;
+    putaranKe.textContent = `p 0/${putaran.value}`;    
+    putaran2frekuensi();     
+
+    pengaturanVolume();
+
+    fileInput.addEventListener('change', function () {           //perubahan pada file input menjalankan script dalam {}                                                               
+      const arrayFile = Array.from(fileInput.files);             //variabel arrayFile menyimpan nilai array file dari fileInput
+      varrayFile = arrayFile                                     //menyimpan nilai konstanta ke variabel supaya bisa dipakai di luar function    
+      if (nomor < arrayFile.length ) {                           //jika file bernilai bukan nol dan bukan kosong, maka jalankan:                       
+        audioPlayer.src = URL.createObjectURL(arrayFile[0]);     //source dari audioPlayer = nilai fileURL = nilai URL file ke nol
+        indikatorAudio.textContent = `siap memutar audio`;             //teks yg tampil pada div dg id 'filename' = nama file ke nol 
+        audioKe.textContent = ` a ${nomor}/${varrayFile.length} `;       
+      }
+      pengaturanVolume();
+    });     
+
+    audioPlayer.addEventListener('play', function (){   //fRute(" Play()");     
+      juruTulis(); 
+    });
+
+    audioPlayer.addEventListener('ended', function (){  //fRute(" Ended()");      //klik tombol play, maka akan menjalankan: 
+                                                        
+      juruHitung();                                      
+      juruTulis();                                      
+                                                        
+      if (tipe == "1x"){
+        if (frekuensi === "sekali"){          
+          pengaturanVolume();         
+          putarAudio();          
+
+        }else if(frekuensi === "berulangkali"){ 
+          if (dahPutar < Number(putaran.value)){ 
+            audioPlayer.currentTime = 0;
+            audioPlayer.play();            
+          } else {            
+            pengaturanVolume();
+            putarAudio();
+          }
+        }
+
+      } else if (tipe == "2x") {                        //fRute(" tipe:".concat(tipe));
+        if (frekuensi == "sekali") { 
+          if (frekModeKe == 2){ 
+            audioPlayer.currentTime = 0;
+            pengaturanVolume();
+            audioPlayer.play();
+          } else if (frekModeKe == 1){            
+            pengaturanVolume();
+            putarAudio();
+          }
+        } else if(frekuensi == "berulangkali"){         //fRute(" frekuensi:".concat(frekuensi));             
+          if (frekModeKe == 2){                         //fRute(" frekModeKe:".concat(frekModeKe)); 
+            audioPlayer.currentTime = 0;                 
+            pengaturanVolume();                         
+            audioPlayer.play();                          
+          } else if (frekModeKe == 1){                  //fRute(" frekModeKe:".concat(frekModeKe));           
+            if (dahPutar < putaran.value){              //fRute(" dahPutar<".concat(putaran.value)); 
+              if (dahPutar == 1){                       //fRute(" dahPutar=1"); 
+                pengaturanVolume();                       
+                putarAudio();
+              } else {                                  //fRute(" dahPutar<>1"); 
+                audioPlayer.currentTime = 0;               
+                pengaturanVolume();                        
+                audioPlayer.play();                       
+              }                
+            } else {                                    //fRute(" dahPutar>=".concat(putaran.value));            
+              pengaturanVolume();                       
+              putarAudio();                              
+            }
+          }
+        }
+      }
+    });
+
+    function pengaturanVolume(){                        fRute(" pengVol()");
+      if (tipe == "1x"){                                fRute(" tipe:".concat(tipe)); 
+        switch (mode.value){                                       // konversi: mode ke audio_volume: di awal
+          case "ds": audioPlayer.muted = false; break;
+          case "d1": audioPlayer.muted = ((nomor+1) % 2 !== 0) ? false : true; break;
+          case "d2": audioPlayer.muted = ((nomor+1) % 2 === 0) ? false : true; break;
+        }
+      } else if (tipe == "2x"){                         fRute(" tipe:".concat(tipe)); 
+          if (frekModeKe == 1){                         fRute(" frekModeKe:".concat(frekModeKe)); 
+            switch (mode.value){                          
+              case "db": audioPlayer.muted = false; break;
+              case "bd": audioPlayer.muted = true; break;              
+            }
+          } else if (frekModeKe == 2){                  fRute(" frekModeKe:".concat(frekModeKe)); 
+            switch (mode.value){                          
+              case "db": audioPlayer.muted = true; break;
+              case "bd": audioPlayer.muted = false; break;              
+            }
+          }
+      }
+    }    
+
+    function putarAudio(){                              //fRute(" PutarAudio()");                                                
+      
+      audioPlayer.src = URL.createObjectURL(varrayFile[nomor]);   //membuat URL untuk source audio                                                             
+      audioPlayer.play();                                         //memutar file audio      
+    }
+
+    function juruHitung(){                              //fRute(" juruHitung()"); 
+
+      if (frekModeKe < angkaFrekMode){                  //fRute(" frekModeKe<".concat(angkaFrekMode)); 
+        frekModeKe ++;                                  
+      } else {                                          //fRute(" frekModeKe>=".concat(angkaFrekMode)); 
+          frekModeKe = 1;                               
+        if (dahPutar < putaran.value){                  //fRute(" dahPutar<".concat(putaran.value)); 
+          dahPutar ++;                                  
+        } else {                                        //fRute(" dahPutar>=".concat(putaran.value)); 
+          dahPutar = 1;                                 
+          if ((nomor+1)<varrayFile.length){             //fRute(" (nomor+1)<".concat(varrayFile.length)); 
+            nomor ++;                                   
+          } else {                                      //fRute(" (nomor+1)>=".concat(varrayFile.length)); 
+            nomor = 0;                                  //fRute(" (nomor)=".concat(nomor)); 
+            if (modeGanjilGenap.checked == true){       //fRute(" modeGanjilGenap.value ==".concat(modeGanjilGenap.value)); 
+              if (mode.value == "d1"){                  //fRute(" mode.value ==".concat(mode.value)); 
+                mode.value = "d2";                      //fRute(" mode.value =".concat(mode.value)); 
+              } else if (mode.value == "d2"){           //fRute(" mode.value ==".concat(mode.value)); 
+                mode.value = "d1";                      //fRute(" mode.value =".concat(mode.value)); 
+              }
+            }                              
+          }
+        }
+      }
+    }
+
+
+    function juruTulis(){                                           //fRute(" juruTulis()"); 
+      indikatorAudio.textContent = varrayFile[nomor].name;          //fRute(" 9");                       //teks pada variabel indikatorAudio = nama audio yg sedang diputar
+      audioKe.textContent = ` a ${nomor+1}/${varrayFile.length} `;  //fRute(" 10");      
+      putaranKe.textContent = `p ${dahPutar}/${putaran.value}`;     //fRute(" 11");
+      frekMode.textContent = ` m ${frekModeKe}/${angkaFrekMode} `;  //fRute(" 12");
+    }
+
+    // Tombol STOP
+    stopButton.addEventListener('click', function () {
+      audioPlayer.pause();
+      audioPlayer.currentTime = 0;
+      indikatorAudio.textContent = "Pemutaran dihentikan";
+    });
+
+    prevButton.addEventListener('click', function () {            
+      audioPlayer.pause(); 
+      audioPlayer.currentTime = 0; 
+      nomor = (nomor > 0) ? nomor - 1 : varrayFile.length - 1;      //nomor = nomor-1, jika nomor > 0, jika tidak, maka nomor = jumlah audio
+      audioPlayer.src = URL.createObjectURL(varrayFile[nomor]);     //membuat URL untuk source audio
+      audioPlayer.play(); 
+    });
+
+    nextButton.addEventListener('click', function () {            
+      audioPlayer.pause(); 
+      audioPlayer.currentTime = 0; 
+      nomor = (nomor < varrayFile.length - 1) ? nomor + 1 : 0;      //nomor = nomor+1, jika nomor < jumlah audio, jika tidak, maka nomor=0
+      audioPlayer.src = URL.createObjectURL(varrayFile[nomor]);     //membuat URL untuk source audio
+      audioPlayer.play(); 
+    });
+    
+    mode.addEventListener('change', function () {                   //jika tombol mode di klik maka jalankan:      
+      updatePilihanPutaran();
+      switch (mode.value){                                          //konversi: mode ke tipe
+        case "bd": tipe = "2x"; angkaFrekMode = 2; break;
+        case "db": tipe = "2x"; angkaFrekMode = 2; break;
+        case "ds": tipe = "1x"; angkaFrekMode = 1; break;
+        case "d1": tipe = "1x"; angkaFrekMode = 1; break;
+        case "d2": tipe = "1x"; angkaFrekMode = 1; break;
+      }
+      frekMode.textContent = `m ${frekModeKe}/${angkaFrekMode}`;
+      tampilkanDivGanjilGenap()
+      pengaturanVolume();
+    });
+                                                                    //jika putaran di klik maka jalankan:
+    putaran.addEventListener('change', function () {   fRute(" 1-")   
+      putaran2frekuensi();                             fRute(" 2-")
+      putaranKe.textContent = `p 0/${putaran.value}`;  fRute(" 3-")
+    })
+
+    putaran.addEventListener('click', function () {    fRute(" 4-")
+      updatePilihanPutaran();                          fRute(" 5-")     
+    })
+
+    function putaran2frekuensi(){                       fRute(" 6-")                                  //fungsi konversi angka putaran ke 'berulangkali / sekali'
+      if (Number(putaran.value)>1){                     fRute(" 7-")
+        frekuensi = "berulangkali";                     fRute(" 8-")               
+      }else{                                            fRute(" 9-")               
+        frekuensi = "sekali";                           fRute(" 10-")                 
+      }      
+    }
+
+    tombolFitur.addEventListener('click', function () {
+      if (sembunyikan =="ya"){        
+        isiFitur.style.display = 'block';
+        isiCatatan.style.display = 'none';
+        sembunyikan = "tidak";
+      } else {
+        isiFitur.style.display = 'none';
+        sembunyikan = "ya";
+      }
+    });
+                                                                    //fungsi untuk menggantikan peran alert (1), yaitu untuk
+    function fRute(a){                                              //... menandai baris coding yg dibaca oleh web browser
+      if (aktifkanRute == true){
+        ruteku = a; 
+        semuaRuteku = semuaRuteku.concat(ruteku); 
+        rute.textContent = semuaRuteku;
+      }
+    }
+
+    tombolRuteku.addEventListener('click', function () {
+      if (aktifkanRute == true){ 
+        aktifkanRute = false;      
+        semuaRuteku = "";
+        rute.textContent = semuaRuteku;
+        tombolRuteku.style.backgroundColor ="lightgrey";
+      } else {
+        aktifkanRute = true;
+        tombolRuteku.style.backgroundColor = "grey";
+      }
+    });
+
+    
+    simpanCounterBaru.addEventListener('click', function () {
+      audioKe.style.display = "inline-block";
+      putaranKe.style.display = "inline-block";
+      frekMode.style.display = "inline-block";     
+      petunjukUbah.style.display = "none";      
+      a_Baru.style.display = "none";
+      p_Baru.style.display = "none";
+      m_Baru.style.display = "none";      
+      a_max.style.display = "none";
+      p_max.style.display = "none";fRute(" 1"); 
+      m_max.style.display = "none";fRute(" 2");       
+      simpanCounterBaru.style.display = "none";fRute(" 3"); 
+      nomor = Number(a_Baru.value)-1;fRute(" 4"); 
+      dahPutar = Number(p_Baru.value);fRute(" 5"); 
+      frekModeKe = Number(m_Baru.value);fRute(" 6"); 
+      
+      juruTulis();fRute(" 8");
+      audioPlayer.src = URL.createObjectURL(varrayFile[nomor]);
+      pengaturanVolume();
+    });
+
+    function updatePilihanPutaran(){
+      let putaranvalue;
+      putaranValue = putaran.value;
+      putaran.innerHTML = "";
+      if (mode.value === "db" || mode.value === "bd" || mode.value === "ds") {                                                                            
+          for (let i = 1; i <= 10; i++) {                                                                     
+              const option = document.createElement("option");      //Tambahkan opsi 1-10
+              option.value = i;
+              option.textContent = i;
+              putaran.appendChild(option);
+              putaran.value = putaranValue;
+          }
+      } else if (mode.value === "d1" || mode.value === "d2") {                                                                           
+          const option = document.createElement("option");          //Tambahkan opsi hanya 1
+          option.value = 1;
+          option.textContent = 1;
+          putaran.appendChild(option);
+      }
+
+    }
+
+    audioKe.addEventListener('click', function () {
+      ubahCounters()  
+    });
+    putaranKe.addEventListener('click', function () {
+      ubahCounters()  
+    });
+    frekMode.addEventListener('click', function () {
+      ubahCounters()  
+    });
+
+    function ubahCounters(){
+      audioKe.style.display = "none";
+      putaranKe.style.display = "none";
+      frekMode.style.display = "none";     
+      petunjukUbah.style.display = "inline-block";      
+      a_Baru.style.display = "inline-block";
+      p_Baru.style.display = "inline-block";
+      m_Baru.style.display = "inline-block";
+      a_Baru.value = nomor + 1;
+      p_Baru.value = dahPutar;
+      m_Baru.value = frekModeKe;
+      a_max.style.display = "inline-block";
+      p_max.style.display = "inline-block";
+      m_max.style.display = "inline-block";
+      a_max.textContent =`/${varrayFile.length}`;
+      p_max.textContent =`/${putaran.value}`;
+      m_max.textContent =`/${angkaFrekMode}`;
+      simpanCounterBaru.style.display = "inline-block";  
+    }
+
+    function tampilkanDivGanjilGenap(){
+      if (mode.value === "d1" || mode.value === "d2") {
+        divGanjilGenap.style.display = 'flex';
+      }
+    }
+
+    tombolCatatan.addEventListener('click', function () {
+      if (sembunyikan =="ya"){        
+        isiCatatan.style.display = 'block';
+        isiCaranya.style.display = 'none';     
+        isiFitur.style.display = 'none';
+        sembunyikan = "tidak";
+      } else {
+        isiCatatan.style.display = 'none';
+        sembunyikan = "ya";
+      }
+    });   
+    
+    tombolCaranya.addEventListener('click', function () {
+      if (sembunyikan =="ya"){   
+        isiCaranya.style.display = 'block';     
+        isiCatatan.style.display = 'none';
+        isiFitur.style.display = 'none';
+        sembunyikan = "tidak";
+      } else {
+        isiCaranya.style.display = 'none';
+        sembunyikan = "ya";
+      }
+    });    
+
+  </script>
+</body>
+</html>
