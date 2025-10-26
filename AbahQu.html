@@ -324,6 +324,7 @@
 
     fileInput.addEventListener('change', function () {           //perubahan pada file input menjalankan script dalam {}                                                               
       const arrayFile = Array.from(fileInput.files);             //variabel arrayFile menyimpan nilai array file dari fileInput
+arrayFile.sort((a,b)=>a.name.localeCompare(b.name));
       varrayFile = arrayFile                                     //menyimpan nilai konstanta ke variabel supaya bisa dipakai di luar function    
       if (nomor < arrayFile.length ) {                           //jika file bernilai bukan nol dan bukan kosong, maka jalankan:                       
         audioPlayer.src = URL.createObjectURL(arrayFile[0]);     //source dari audioPlayer = nilai fileURL = nilai URL file ke nol
