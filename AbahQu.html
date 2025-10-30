@@ -370,6 +370,7 @@
     let ItemSampaiAyat;
     let ItemZsampaiAyat;  
     let BanyakBaris;
+    let sampai_BarisKe;
 
     switch (mode.value){                                        // konversi: mode ke tipe
       case "bd": tipe = "2x"; angkaFrekMode = 2; break;
@@ -537,28 +538,33 @@
 
         ///////////////////
         let selisih_MulaiSurat = nilaiMulaiSurat-suratAwal;        
-        let mulai_BarisKe = 0;        
-        if (selisih_MulaiSurat >0){
-          mulai_BarisKe = mulai_BarisKe + suratKeJumlahAyat(suratAwal) - ayatAwal ; 
-        }
-        for (let i =0; i<selisih_MulaiSurat; i++){
-          mulai_BarisKe = mulai_BarisKe + suratKeJumlahAyat(suratAwal + i);
-        }        
-        mulai_BarisKe = mulai_BarisKe + nilaiMulaiAyat -1;          
+        let mulai_BarisKe = 0; 
+        alert(`mulai_BarisKe 1 : ${mulai_BarisKe}`);  
+        mulai_BarisKe = mulai_BarisKe + nilaiMulaiAyat - ayatAwal ;
+         alert(`mulai_BarisKe 2 : ${mulai_BarisKe}`);    
+        if (selisih_MulaiSurat > 0){ 
+          for (let i =0; i< selisih_MulaiSurat; i++){
+            mulai_BarisKe = mulai_BarisKe + suratKeJumlahAyat(suratAwal + i);
+            alert(`mulai_BarisKe 4 : ${mulai_BarisKe}`);  
+          } 
+        }       
+                  
         //alert(`nilaiMulaiSurat ${nilaiMulaiSurat} dan suratAwal ${suratAwal} dan selisih_MulaiSurat ${selisih_MulaiSurat} nilaiMulaiAyat ${nilaiMulaiAyat}`);
         
         /////////////////////
         let selisih_SampaiSurat = nilaiSampaiSurat-suratAwal;        
-        let sampai_BarisKe = 0; 
-        if (selisih_MulaiSurat >0){       
-        sampai_BarisKe = sampai_BarisKe + suratKeJumlahAyat(suratAwal) - ayatAwal ; 
-        }
-        for (let i =0; i<selisih_SampaiSurat; i++){
-          sampai_BarisKe = sampai_BarisKe + suratKeJumlahAyat(suratAwal + i);
-        }        
-        sampai_BarisKe = sampai_BarisKe + nilaiSampaiAyat -1;   
-        BanyakBaris = sampai_BarisKe - mulai_BarisKe;        
+        sampai_BarisKe = 0; 
+        alert(`sampai_BarisKe 1 : ${sampai_BarisKe}`);  
+        sampai_BarisKe = sampai_BarisKe + nilaiSampaiAyat - ayatAwal ;
+         alert(`sampai_BarisKe 2 : ${sampai_BarisKe}`);    
+        if (selisih_MulaiSurat > 0){ 
+          for (let i =0; i< selisih_SampaiSurat; i++){
+            sampai_BarisKe = sampai_BarisKe + suratKeJumlahAyat(suratAwal + i);
+            alert(`sampai_BarisKe 4 : ${sampai_BarisKe}`);  
+          } 
+        }  
         
+        BanyakBaris = sampai_BarisKe - mulai_BarisKe;
       //>>> membuat objek URL
 
       
@@ -571,7 +577,7 @@
       }
     });
 
-    function tigaDigitkan(nilaiTarget){
+    /*function tigaDigitkan(nilaiTarget){
       if (String(nilaiTarget).length ==3){
           nilaiTarget = nilaiTarget;
         } else {
@@ -582,7 +588,7 @@
           }
         }
       return nilaiTarget;
-    }
+    }*/
 
     function noKeNamaSurat(nomorSurat){
         const namaSurat = { 1:"1. Al-Fatihah", 2:"2. Al-Baqarah", 3:"3. Ali 'Imran", 4:"4. An-Nisa'", 5:"5. Al-Ma'idah", 6:"6. Al-An'am", 
@@ -612,7 +618,7 @@
 
     function juruTulis(){                                           //fRute(" juruTulis()"); 
       indikatorAudio.textContent = varrayFile[nomor].name;          //fRute(" 9");                       //teks pada variabel indikatorAudio = nama audio yg sedang diputar
-      audioKe.textContent = ` a ${nomor+1}/${BanyakBaris}/${varrayFile.length} `;  //fRute(" 10");      
+      audioKe.textContent = ` a ${nomor+1}/${sampai_BarisKe}/${varrayFile.length} `;  //fRute(" 10");      
       putaranKe.textContent = `p ${dahPutar}/${putaran.value}`;     //fRute(" 11");
       frekMode.textContent = ` m ${frekModeKe}/${angkaFrekMode} `;  //fRute(" 12");
     }
@@ -709,7 +715,7 @@
           dahPutar ++;                                  
         } else {                                        //fRute(" dahPutar>=".concat(putaran.value)); 
           dahPutar = 1;                                 
-          if ((nomor+1)<BanyakBaris){             //fRute(" (nomor+1)<".concat(varrayFile.length)); 
+          if ((nomor+1)<sampai_BarisKe){             //fRute(" (nomor+1)<".concat(varrayFile.length)); 
             nomor ++;                                   
           } else {                                      //fRute(" (nomor+1)>=".concat(varrayFile.length)); 
             nomor = 0;                                  //fRute(" (nomor)=".concat(nomor)); 
