@@ -490,7 +490,8 @@
           option.value = ItemAmulaiAyat + i -1;
           option.textContent =  ItemAmulaiAyat + i -1;
           mulaiAyat.appendChild(option);
-        }       
+        }         
+        
     });
 
     sampaiSurat.addEventListener('change', function () {    
@@ -538,14 +539,11 @@
 
         ///////////////////
         let selisih_MulaiSurat = nilaiMulaiSurat-suratAwal;        
-        let mulai_BarisKe = 0; 
-        alert(`mulai_BarisKe 1 : ${mulai_BarisKe}`);  
-        mulai_BarisKe = mulai_BarisKe + nilaiMulaiAyat - ayatAwal ;
-         alert(`mulai_BarisKe 2 : ${mulai_BarisKe}`);    
+        let mulai_BarisKe = 0;         
+        mulai_BarisKe = mulai_BarisKe + nilaiMulaiAyat - ayatAwal ;          
         if (selisih_MulaiSurat > 0){ 
           for (let i =0; i< selisih_MulaiSurat; i++){
-            mulai_BarisKe = mulai_BarisKe + suratKeJumlahAyat(suratAwal + i);
-            alert(`mulai_BarisKe 4 : ${mulai_BarisKe}`);  
+            mulai_BarisKe = mulai_BarisKe + suratKeJumlahAyat(suratAwal + i);           
           } 
         }       
                   
@@ -553,16 +551,13 @@
         
         /////////////////////
         let selisih_SampaiSurat = nilaiSampaiSurat-suratAwal;        
-        sampai_BarisKe = 0; 
-        alert(`sampai_BarisKe 1 : ${sampai_BarisKe}`);  
-        sampai_BarisKe = sampai_BarisKe + nilaiSampaiAyat - ayatAwal ;
-         alert(`sampai_BarisKe 2 : ${sampai_BarisKe}`);    
+        sampai_BarisKe = 0;         
+        sampai_BarisKe = sampai_BarisKe + nilaiSampaiAyat - ayatAwal ;         
         if (selisih_MulaiSurat > 0){ 
           for (let i =0; i< selisih_SampaiSurat; i++){
-            sampai_BarisKe = sampai_BarisKe + suratKeJumlahAyat(suratAwal + i);
-            alert(`sampai_BarisKe 4 : ${sampai_BarisKe}`);  
+            sampai_BarisKe = sampai_BarisKe + suratKeJumlahAyat(suratAwal + i);            
           } 
-        }  
+        }         
         
         BanyakBaris = sampai_BarisKe - mulai_BarisKe;
       //>>> membuat objek URL
@@ -576,6 +571,12 @@
       pengaturanVolume();
       }
     });
+
+    mulaiAyat.addEventListener('change', function () { 
+      
+    });
+
+
 
     /*function tigaDigitkan(nilaiTarget){
       if (String(nilaiTarget).length ==3){
