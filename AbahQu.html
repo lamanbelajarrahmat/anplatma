@@ -371,6 +371,7 @@
     let ItemZsampaiAyat;  
     let BanyakBaris;
     let sampai_BarisKe;
+    let mulai_BarisKe
 
     switch (mode.value){                                        // konversi: mode ke tipe
       case "bd": tipe = "2x"; angkaFrekMode = 2; break;
@@ -539,7 +540,7 @@
 
         ///////////////////
         let selisih_MulaiSurat = nilaiMulaiSurat-suratAwal;        
-        let mulai_BarisKe = 0;         
+        mulai_BarisKe = 0;         
         mulai_BarisKe = mulai_BarisKe + nilaiMulaiAyat - ayatAwal ;          
         if (selisih_MulaiSurat > 0){ 
           for (let i =0; i< selisih_MulaiSurat; i++){
