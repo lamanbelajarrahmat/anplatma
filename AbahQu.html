@@ -10,7 +10,8 @@
     * {
         margin: 0;
         padding: 0;
-        box-sizing: border-box;        
+        box-sizing: border-box;  
+        /*border: 1px solid rgb(8, 1, 1);*/
       }
 
      h1 {
@@ -27,6 +28,16 @@
       border-radius: 5px;
       border: 1px solid #ccc; 
       font-size: 18px;      
+      text-align:center;
+     } 
+
+      .inputSelectMulaiSampai {
+      margin-top:10px;
+      padding: 8px;
+      width:100%;
+      border-radius: 5px;
+      border: 1px solid #ccc; 
+      font-size: 14px;      
       text-align:center;
      } 
     
@@ -71,6 +82,7 @@
       
     }
     .container {
+       
       background-color: white;
       padding: 20px;
       border-radius: 8px;
@@ -138,7 +150,7 @@
   <div class="container">
     <h1 >ABAHQU <span style="font-size: 20px;">Lev.1p</span></h1>
     <p style="margin-bottom: 30px; padding-top: 0;">Alat Bantu Hafalan & Muraja'ah AlQuran</p>
-    <input type="file" id="fileInput" webkitdirectory directory multiple >
+    <input type="file" id="fileInput" webkitdirectory directory multiple >    
 
     <div style="width: 100%; display: flex; gap: 10px; margin-top: 20px; justify-content: center;" >
       <div >
@@ -146,24 +158,14 @@
         <div style="display: flex; gap:5px; margin-top: 5px;" >
           <div>
             <div><label>Surat</label></div>
-            <div><select class="inputSelect" id="mulaiSurat">
-              <option value=1 selected="true">1</option>          
-              <option value=2>2</option>
-              <option value=3>3</option>
-              <option value=4>4</option>
-              <option value=5>5</option>
-              <option value=5>6</option> 
+            <div><select class="inputSelectMulaiSampai" id="mulaiSurat">
+              <option value="" selected="true">pilih</option>   
             </select></div> 
           </div>
           <div>
             <div><label>Ayat</label></div>
-            <div><select class="inputSelect" id="mulaiAyat">
-              <option value=1 selected="true">1</option>          
-              <option value=2>202</option>
-              <option value=3>203</option>
-              <option value=4>204</option>
-              <option value=5>205</option>
-              <option value=5>206</option> 
+            <div><select class="inputSelectMulaiSampai" id="mulaiAyat">
+              <option value="" selected="true">pilih</option> 
             </select></div>
           </div>
         </div>
@@ -173,30 +175,21 @@
         <div style="display: flex; gap:5px; margin-top: 5px;">
           <div>
             <div style="width: max-content;"><label>Surat</label></div>
-            <div><select class="inputSelect" id="sampaiSurat">
-              <option value=1 selected="true">1</option>          
-              <option value=2>2</option>
-              <option value=3>3</option>
-              <option value=4>4</option>
-              <option value=5>5</option>
-              <option value=5>6</option> 
+            <div><select class="inputSelectMulaiSampai" id="sampaiSurat">
+              <option value="" selected="true">pilih</option> 
             </select></div>
           </div>
           <div>
             <div><label>Ayat</label></div>
-            <div><select class="inputSelect" id="sampaiAyat">
-              <option value=1 selected="true">200</option>          
-              <option value=2>201</option>
-              <option value=3>202</option>
-              <option value=4>203</option>
-              <option value=5>204</option>
-              <option value=5>205</option> 
+            <div><select class="inputSelectMulaiSampai" id="sampaiAyat">
+              <option value="" selected="true">pilih</option> 
             </select></div>
           </div>
         </div>
       </div>    
     </div>
-    
+
+
     <div class="flexDiv" >
       <div class="flexDivInput">
         <label style="width: 100%;" for="mode">Mode: </label>
@@ -324,6 +317,10 @@
   <script>
                                                                     
     const fileInput = document.getElementById('fileInput');    //deklarasi fileInput, audioPlayer, dan indikatorAudio diambil dari id yg sesuai
+    const mulaiSurat = document.getElementById('mulaiSurat'); 
+    const mulaiAyat = document.getElementById('mulaiAyat'); 
+    const sampaiSurat = document.getElementById('sampaiSurat'); 
+    const sampaiAyat = document.getElementById('sampaiAyat'); 
     const audioPlayer = document.getElementById('audioPlayer');
     const indikatorAudio = document.getElementById('indikatorAudio');
     const audioKe = document.getElementById('audioKe');
@@ -356,7 +353,7 @@
     let tipe;    
     let frekuensi;     
     let varrayFile = [];
-    let nomor = 0;    
+    let nomor ;    
     let dahPutar = 1; 
     let sembunyikan = "ya";
     let angkaFrekMode = 0;
@@ -364,6 +361,20 @@
     let semuaRuteku = "";
     let a;
     let aktifkanRute = false;
+    let suratAwal;
+    let suratAkhir;
+    let ayatAwal;
+    let ayatAkhir;
+    let ItemAmulaiAyat;
+    let ItemZmulaiAyat;
+    let jumlahItem;
+    let nilaiMulaiSurat; 
+    let nilaiMulaiAyat;
+    let nilaiSampaiSurat;
+    let nilaiSampaiAyat;
+    let ItemSampaiAyat;
+    let ItemZsampaiAyat;  
+    let BanyakBaris;
 
     switch (mode.value){                                        // konversi: mode ke tipe
       case "bd": tipe = "2x"; angkaFrekMode = 2; break;
@@ -381,20 +392,238 @@
     pengaturanVolume();
 
     fileInput.addEventListener('change', function () {           //perubahan pada file input menjalankan script dalam {}                                                               
+      //>>> Menyimpan input dalam array dan mengurutkan nama file
       const arrayFile = Array.from(fileInput.files);             //variabel arrayFile menyimpan nilai array file dari fileInput
-arrayFile.sort((a,b)=>a.name.localeCompare(b.name));
+      arrayFile.sort((a,b)=>a.name.localeCompare(b.name)); 
+      varrayFile = arrayFile;                                    //menyimpan nilai konstanta ke variabel supaya bisa dipakai di luar function     
+      //>>> mengambil nomor surat pertama dan nomor surat terakhir pada array
+      suratAwal = Number(arrayFile[0].name.slice(0,3));
+      suratAkhir = Number(arrayFile[arrayFile.length-1].name.slice(0,3));
+      ayatAwal = Number(arrayFile[0].name.slice(3,6));
+      ayatAkhir = Number(arrayFile[arrayFile.length-1].name.slice(3,6));
+      
+      //alert(suratAwal);
+      //alert(suratAkhir);
+      //alert(ayatAwal);
+      //alert(ayatAkhir);
+      
+      //>>> menampilkan pilihan awal = "pilih"
+      const defaultOption =document.createElement("option");
+      mulaiSurat.textContent="";
+      defaultOption.textContent = "pilih";
+      defaultOption.value = "";
+      defaultOption.disabled = true;
+      defaultOption.selected = true;
+      mulaiSurat.appendChild(defaultOption);
+
+      //>>> menampilkan pilihan input nomor surat
+      for (let i=1; i<= suratAkhir-suratAwal+1; i++){
+        const option = document.createElement("option");
+        option.value = suratAwal-1+i;
+        option.textContent = suratAwal-1+i;
+        mulaiSurat.appendChild(option);
+      }
+
+    /*  //>>> membuat objek URL
       varrayFile = arrayFile                                     //menyimpan nilai konstanta ke variabel supaya bisa dipakai di luar function    
-      if (nomor < arrayFile.length ) {                           //jika file bernilai bukan nol dan bukan kosong, maka jalankan:                       
+      if (nomor < arrayFile.length ) {                           
         audioPlayer.src = URL.createObjectURL(arrayFile[0]);     //source dari audioPlayer = nilai fileURL = nilai URL file ke nol
-        indikatorAudio.textContent = `siap memutar audio`;             //teks yg tampil pada div dg id 'filename' = nama file ke nol 
+        indikatorAudio.textContent = `siap memutar audio`;       //teks yg tampil pada div dg id 'filename' = nama file ke nol 
         audioKe.textContent = ` a ${nomor}/${varrayFile.length} `;       
       }
       pengaturanVolume();
-    });     
+      */
+    }); 
+
+    mulaiSurat.addEventListener('change', function () { 
+      
+      //>>> membuat pilihan/ option untuk "sampai surat"
+      nilaiMulaiSurat = Number(mulaiSurat.value) ;
+
+      sampaiSurat.textContent="";
+      const defaultOption =document.createElement("option");
+      defaultOption.textContent = "pilih";
+      defaultOption.value = "";
+      defaultOption.disabled = true;
+      defaultOption.selected = true;
+      sampaiSurat.appendChild(defaultOption);
+      for (let i=1; i<= suratAkhir-nilaiMulaiSurat + 1; i++){
+        const option = document.createElement("option");
+        option.value = nilaiMulaiSurat-1+i;
+        option.textContent = nilaiMulaiSurat-1+i;
+        sampaiSurat.appendChild(option);
+      } 
+       //>>> buat pilihan/ option untuk "mulai ayat"
+      const jumlahAyat = { 1:7, 2:286, 3:200, 4:176, 5:120, 6:165, 7:206, 8:75, 9:129, 10:109, 
+        11:123, 12:111, 13:43, 14:52, 15:99, 16:128, 17:111, 18:110, 19:98, 20:135, 21:112, 
+        22:78, 23:118, 24:64, 25:77, 26:227, 27:93, 28:88, 29:69, 30:60, 31:34, 32:30, 33:73, 
+        34:54, 35:45, 36:83, 37:182, 38:88, 39:75, 40:85, 41:54, 42:53, 43:89, 44:59, 45:37, 
+        46:35, 47:38, 48:29, 49:18, 50:45, 51:60, 52:49, 53:62, 54:55, 55:78, 56:96, 57:29, 
+        58:22, 59:24, 60:13, 61:14, 62:11, 63:11, 64:18, 65:12, 66:12, 67:30, 68:52, 69:52, 
+        70:44, 71:28, 72:28, 73:20, 74:56, 75:40, 76:31, 77:50, 78:40, 79:46, 80:42, 81:29, 
+        82:19, 83:36, 84:25, 85:22, 86:17, 87:19, 88:26, 89:30, 90:20, 91:15, 92:21, 93:11, 
+        94:8, 95:8, 96:19, 97:5, 98:8, 99:8, 100:11, 101:11, 102:8, 103:3, 104:9, 105:5, 106:4, 
+        107:7, 108:3, 109:6, 110:3, 111:5, 112:4, 113:5, 114:6 }; 
+      
+
+      // $:catatan jangan meletakkan "let" dalam block jika variabelnya digunakan juga diluar blok
+      if (nilaiMulaiSurat == suratAwal){      
+        ItemAmulaiAyat = ayatAwal;
+        ItemZmulaiAyat = jumlahAyat[nilaiMulaiSurat];
+        
+      } else {
+          ItemAmulaiAyat = 1;
+          if (nilaiMulaiSurat == suratAkhir){  
+            ItemZmulaiAyat = ayatAkhir;
+          } else {
+            ItemZmulaiAyat = jumlahAyat[nilaiMulaiSurat];
+          }
+      }
+      
+      jumlahItem = ItemZmulaiAyat-ItemAmulaiAyat;        
+
+      const defaultOption2 =document.createElement("option");
+        mulaiAyat.textContent="";
+        defaultOption2.textContent = "pilih";
+        defaultOption2.value = "";
+        defaultOption2.disabled = true;
+        defaultOption2.selected = true;
+        mulaiAyat.appendChild(defaultOption2); 
+        for (let i=1; i<= jumlahItem + 1; i++){
+          const option = document.createElement("option");
+          option.value = ItemAmulaiAyat + i -1;
+          option.textContent = ItemAmulaiAyat + i -1;
+          mulaiAyat.appendChild(option);
+        }       
+    });
+
+    sampaiSurat.addEventListener('change', function () {       
+     
+       //>>> buat pilihan/ option untuk "sampai ayat"
+      const jumlahAyat = { 1:7, 2:286, 3:200, 4:176, 5:120, 6:165, 7:206, 8:75, 9:129, 10:109, 
+        11:123, 12:111, 13:43, 14:52, 15:99, 16:128, 17:111, 18:110, 19:98, 20:135, 21:112, 
+        22:78, 23:118, 24:64, 25:77, 26:227, 27:93, 28:88, 29:69, 30:60, 31:34, 32:30, 33:73, 
+        34:54, 35:45, 36:83, 37:182, 38:88, 39:75, 40:85, 41:54, 42:53, 43:89, 44:59, 45:37, 
+        46:35, 47:38, 48:29, 49:18, 50:45, 51:60, 52:49, 53:62, 54:55, 55:78, 56:96, 57:29, 
+        58:22, 59:24, 60:13, 61:14, 62:11, 63:11, 64:18, 65:12, 66:12, 67:30, 68:52, 69:52, 
+        70:44, 71:28, 72:28, 73:20, 74:56, 75:40, 76:31, 77:50, 78:40, 79:46, 80:42, 81:29, 
+        82:19, 83:36, 84:25, 85:22, 86:17, 87:19, 88:26, 89:30, 90:20, 91:15, 92:21, 93:11, 
+        94:8, 95:8, 96:19, 97:5, 98:8, 99:8, 100:11, 101:11, 102:8, 103:3, 104:9, 105:5, 106:4, 
+        107:7, 108:3, 109:6, 110:3, 111:5, 112:4, 113:5, 114:6 };          
+     
+      nilaiMulaiSurat = Number(mulaiSurat.value);      
+      nilaiMulaiAyat = Number(mulaiAyat.value);       
+      nilaiSampaiSurat = Number(sampaiSurat.value);  
+        
+      if (nilaiSampaiSurat == nilaiMulaiSurat){      
+        ItemAsampaiAyat = nilaiMulaiAyat;         
+        ItemZsampaiAyat = jumlahAyat[nilaiSampaiSurat];        
+      } else {
+          ItemAsampaiAyat = 1;
+          if (nilaiSampaiSurat == suratAkhir){ 
+            ItemZsampaiAyat = ayatAkhir;
+          } else {            
+            ItemZsampaiAyat = jumlahAyat[nilaiSampaiSurat];
+          }
+      }
+      
+      jumlahItem = ItemZsampaiAyat-ItemAsampaiAyat; 
+      const defaultOption2 =document.createElement("option");
+        sampaiAyat.textContent="";
+        defaultOption2.textContent = "pilih";
+        defaultOption2.value = "";
+        defaultOption2.disabled = true;
+        defaultOption2.selected = true;
+        sampaiAyat.appendChild(defaultOption2); 
+        
+        for (let i = 1; i <= jumlahItem + 1; i++){
+          const option = document.createElement("option");
+          option.value = ItemAsampaiAyat + i -1;
+          option.textContent = ItemAsampaiAyat + i -1;
+          sampaiAyat.appendChild(option);
+          
+        } 
+      
+    });
+
+    sampaiAyat.addEventListener('change', function () { 
+      nilaiMulaiSurat = Number(mulaiSurat.value) ;
+      nilaiMulaiAyat = Number(mulaiAyat.value)  ;
+      nilaiSampaiSurat = Number(sampaiSurat.value) ;      
+      nilaiSampaiAyat = Number(sampaiAyat.value) ;
+       
+      if (nilaiMulaiSurat !== "" && nilaiMulaiAyat !== "" && nilaiSampaiSurat !== "" && nilaiSampaiAyat !== ""){  
+
+        const jumlahAyat = { 1:7, 2:286, 3:200, 4:176, 5:120, 6:165, 7:206, 8:75, 9:129, 10:109, 
+        11:123, 12:111, 13:43, 14:52, 15:99, 16:128, 17:111, 18:110, 19:98, 20:135, 21:112, 
+        22:78, 23:118, 24:64, 25:77, 26:227, 27:93, 28:88, 29:69, 30:60, 31:34, 32:30, 33:73, 
+        34:54, 35:45, 36:83, 37:182, 38:88, 39:75, 40:85, 41:54, 42:53, 43:89, 44:59, 45:37, 
+        46:35, 47:38, 48:29, 49:18, 50:45, 51:60, 52:49, 53:62, 54:55, 55:78, 56:96, 57:29, 
+        58:22, 59:24, 60:13, 61:14, 62:11, 63:11, 64:18, 65:12, 66:12, 67:30, 68:52, 69:52, 
+        70:44, 71:28, 72:28, 73:20, 74:56, 75:40, 76:31, 77:50, 78:40, 79:46, 80:42, 81:29, 
+        82:19, 83:36, 84:25, 85:22, 86:17, 87:19, 88:26, 89:30, 90:20, 91:15, 92:21, 93:11, 
+        94:8, 95:8, 96:19, 97:5, 98:8, 99:8, 100:11, 101:11, 102:8, 103:3, 104:9, 105:5, 106:4, 
+        107:7, 108:3, 109:6, 110:3, 111:5, 112:4, 113:5, 114:6 }; 
+
+        ///////////////////
+        let selisih_MulaiSurat = nilaiMulaiSurat-suratAwal;        
+        let mulai_BarisKe = 0;        
+        if (selisih_MulaiSurat >0){
+          mulai_BarisKe = mulai_BarisKe + jumlahAyat[suratAwal] - ayatAwal ; 
+        }
+        for (let i =0; i<selisih_MulaiSurat; i++){
+          mulai_BarisKe = mulai_BarisKe + jumlahAyat[suratAwal + i];
+        }        
+        mulai_BarisKe = mulai_BarisKe + nilaiMulaiAyat -1;          
+        //alert(`nilaiMulaiSurat ${nilaiMulaiSurat} dan suratAwal ${suratAwal} dan selisih_MulaiSurat ${selisih_MulaiSurat} nilaiMulaiAyat ${nilaiMulaiAyat}`);
+        
+        /////////////////////
+        let selisih_SampaiSurat = nilaiSampaiSurat-suratAwal;        
+        let sampai_BarisKe = 0; 
+        if (selisih_MulaiSurat >0){       
+        sampai_BarisKe = sampai_BarisKe + jumlahAyat[suratAwal] - ayatAwal ; 
+        }
+        for (let i =0; i<selisih_SampaiSurat; i++){
+          sampai_BarisKe = sampai_BarisKe + jumlahAyat[suratAwal + i];
+        }        
+        sampai_BarisKe = sampai_BarisKe + nilaiSampaiAyat -1;   
+        BanyakBaris = sampai_BarisKe - mulai_BarisKe;        
+        
+      //>>> membuat objek URL
+
+      
+      nomor =  mulai_BarisKe;                                   
+      
+        audioPlayer.src = URL.createObjectURL(varrayFile[nomor]);     //source dari audioPlayer = nilai fileURL = nilai URL file ke nol
+        indikatorAudio.textContent = `audio siap ..`;            //teks yg tampil pada div dg id 'filename' = nama file ke nol 
+        audioKe.textContent = ` a ${nomor}/${sampai_BarisKe} `;        
+      pengaturanVolume();
+      }
+    });
+
+    function tigaDigitkan(nilaiTarget){
+      if (String(nilaiTarget).length ==3){
+          nilaiTarget = nilaiTarget;
+        } else {
+          if (String(nilaiTarget).length ==2){
+            nilaiTarget = "0" + nilaiTarget;
+          } else {
+              nilaiTarget = "00" + nilaiTarget;
+          }
+        }
+      return nilaiTarget;
+    }
 
     audioPlayer.addEventListener('play', function (){   //fRute(" Play()");     
       juruTulis(); 
     });
+
+    function juruTulis(){                                           //fRute(" juruTulis()"); 
+      indikatorAudio.textContent = varrayFile[nomor].name;          //fRute(" 9");                       //teks pada variabel indikatorAudio = nama audio yg sedang diputar
+      audioKe.textContent = ` a ${nomor+1}/${BanyakBaris}/${varrayFile.length} `;  //fRute(" 10");      
+      putaranKe.textContent = `p ${dahPutar}/${putaran.value}`;     //fRute(" 11");
+      frekMode.textContent = ` m ${frekModeKe}/${angkaFrekMode} `;  //fRute(" 12");
+    }
 
     audioPlayer.addEventListener('ended', function (){  //fRute(" Ended()");      //klik tombol play, maka akan menjalankan: 
                                                         
@@ -488,7 +717,7 @@ arrayFile.sort((a,b)=>a.name.localeCompare(b.name));
           dahPutar ++;                                  
         } else {                                        //fRute(" dahPutar>=".concat(putaran.value)); 
           dahPutar = 1;                                 
-          if ((nomor+1)<varrayFile.length){             //fRute(" (nomor+1)<".concat(varrayFile.length)); 
+          if ((nomor+1)<BanyakBaris){             //fRute(" (nomor+1)<".concat(varrayFile.length)); 
             nomor ++;                                   
           } else {                                      //fRute(" (nomor+1)>=".concat(varrayFile.length)); 
             nomor = 0;                                  //fRute(" (nomor)=".concat(nomor)); 
@@ -504,19 +733,11 @@ arrayFile.sort((a,b)=>a.name.localeCompare(b.name));
       }
     }
 
-
-    function juruTulis(){                                           //fRute(" juruTulis()"); 
-      indikatorAudio.textContent = varrayFile[nomor].name;          //fRute(" 9");                       //teks pada variabel indikatorAudio = nama audio yg sedang diputar
-      audioKe.textContent = ` a ${nomor+1}/${varrayFile.length} `;  //fRute(" 10");      
-      putaranKe.textContent = `p ${dahPutar}/${putaran.value}`;     //fRute(" 11");
-      frekMode.textContent = ` m ${frekModeKe}/${angkaFrekMode} `;  //fRute(" 12");
-    }
-
     // Tombol STOP
     stopButton.addEventListener('click', function () {
       audioPlayer.pause();
       audioPlayer.currentTime = 0;
-      indikatorAudio.textContent = "Pemutaran dihentikan";
+      indikatorAudio.textContent = "dihentikan ..";
     });
 
     prevButton.addEventListener('click', function () {            
@@ -596,7 +817,6 @@ arrayFile.sort((a,b)=>a.name.localeCompare(b.name));
         tombolRuteku.style.backgroundColor = "grey";
       }
     });
-
     
     simpanCounterBaru.addEventListener('click', function () {
       audioKe.style.display = "inline-block";
@@ -622,7 +842,7 @@ arrayFile.sort((a,b)=>a.name.localeCompare(b.name));
     function updatePilihanPutaran(){
       let putaranvalue;
       putaranValue = putaran.value;
-      putaran.innerHTML = "";
+      putaran.textContent = "";
       if (mode.value === "db" || mode.value === "bd" || mode.value === "ds") {                                                                            
           for (let i = 1; i <= 10; i++) {                                                                     
               const option = document.createElement("option");      //Tambahkan opsi 1-10
@@ -637,8 +857,7 @@ arrayFile.sort((a,b)=>a.name.localeCompare(b.name));
           option.textContent = 1;
           putaran.appendChild(option);
       }
-
-    }
+    }  
 
     audioKe.addEventListener('click', function () {
       ubahCounters()  
@@ -698,7 +917,7 @@ arrayFile.sort((a,b)=>a.name.localeCompare(b.name));
         isiCaranya.style.display = 'none';
         sembunyikan = "ya";
       }
-    });    
+    });  
 
   </script>
 </body>
