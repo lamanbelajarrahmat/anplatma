@@ -372,6 +372,7 @@
     let ItemZsampaiAyat;  
     let BanyakBaris;
     let sampai_BarisKe;
+    let mulai_BarisKe
 
     switch (mode.value){                                        // konversi: mode ke tipe
       case "bd": tipe = "2x"; angkaFrekMode = 2; break;
@@ -540,7 +541,7 @@
 
         ///////////////////
         let selisih_MulaiSurat = nilaiMulaiSurat-suratAwal;        
-        let mulai_BarisKe = 0;         
+        mulai_BarisKe = 0;         
         mulai_BarisKe = mulai_BarisKe + nilaiMulaiAyat - ayatAwal ;          
         if (selisih_MulaiSurat > 0){ 
           for (let i =0; i< selisih_MulaiSurat; i++){
@@ -720,7 +721,7 @@
           if ((nomor+1)<sampai_BarisKe){             //fRute(" (nomor+1)<".concat(varrayFile.length)); 
             nomor ++;                                   
           } else {                                      //fRute(" (nomor+1)>=".concat(varrayFile.length)); 
-            nomor = 0;                                  //fRute(" (nomor)=".concat(nomor)); 
+            nomor = mulai_BarisKe;                                  //fRute(" (nomor)=".concat(nomor)); 
             if (modeGanjilGenap.checked == true){       //fRute(" modeGanjilGenap.value ==".concat(modeGanjilGenap.value)); 
               if (mode.value == "d1"){                  //fRute(" mode.value ==".concat(mode.value)); 
                 mode.value = "d2";                      //fRute(" mode.value =".concat(mode.value)); 
