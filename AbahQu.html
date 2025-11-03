@@ -5,7 +5,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="manifest" href="manifest.json">
-  <title>ABAHQU Lev.1p</title>
+  <title>ABAHQU Lev.1q</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
   <style>
     * {
         margin: 0;
@@ -13,7 +14,6 @@
         box-sizing: border-box;  
         /*border: 1px solid rgb(8, 1, 1);*/
       }
-
      h1 {
       color: #3498db;
       margin-bottom: 20px;
@@ -21,6 +21,32 @@
       padding-bottom: 0;
       font-style:bold;
      }
+      .tabs {
+      display: flex;
+      cursor: pointer;
+      margin-bottom: 3px;
+    }
+    .tab {
+      padding: 5px 10px;
+      border: 1px solid #ccc;
+      border-bottom: none;
+      background: #eee;
+      margin-right: 5px;
+      border-radius: 5px 5px 0 0;
+    }
+    .tab.active {
+      background: white;
+      font-weight: bold;
+    }
+    .tab-content {
+      border: 1px solid #ccc;
+      padding: 10px;
+      display: none;
+      border-radius: 0 0 5px 5px;
+    }
+    .tab-content.active {
+      display: block;
+    }
      .inputSelect {
       margin-top:10px;
       padding: 8px;
@@ -30,7 +56,6 @@
       font-size: 18px;      
       text-align:center;
      } 
-
       .inputSelectMulaiSampai {
       margin-top:10px;
       padding: 8px;
@@ -39,22 +64,20 @@
       border: 1px solid #ccc; 
       font-size: 18px;      
       text-align:center;
-     } 
-    
-     #fileInput {     
+     }     
+    /* #fileInput {     
       padding: 8px;
       width: 100%;
       border-radius: 5px;
       border: 1px solid #ccc; 
       font-size:18px;
-     } 
+     } */
      .flexDivInput{      
       display: flex;
       flex-wrap:wrap;        
       margin-top: 10px; 
       margin-bottom:10px;         
-      font-size: 18px;   
-      
+      font-size: 18px;         
      }
      .flexDiv{      
       display: flex;
@@ -62,8 +85,7 @@
       gap: 10px;
       margin-top: 10px; 
       margin-bottom:10px;         
-      font-size: 18px; 
-            
+      font-size: 18px;             
     }  
     body {
       font-family: Arial, sans-serif;
@@ -73,16 +95,13 @@
       flex-direction: column;
       align-items: center;      
       height: 100vh;
-
     }
     #audioPlayer {
       margin-top: 10px;
       margin-bottom: 10px;
-      width: 100%;
-      
+      width: 100%;      
     }
-    .container {
-       
+    .container {       
       background-color: white;
       padding: 20px;
       border-radius: 8px;
@@ -90,19 +109,16 @@
       text-align:center;
       max-width: 600px;  
       margin:10px;        
-    }
-    
+    }    
     .button:hover {
       background-color: #2980b9;
     }
-
     #divStopPrevNext{      
       display: flex;      
       gap: 10px;
       margin-top: 10px; 
       margin-bottom: 10px;        
     }
-
     .stopPrevNext {
       width: 100%;
       font-size: 18px; 
@@ -114,7 +130,6 @@
       cursor: pointer;
       margin-top: 5px;   
     }
-
     .tombolService {
       margin-top: 20px; 
       border: 1px solid #3498db; 
@@ -123,7 +138,6 @@
       color: black;
       padding: 5px;      
     }
-
     .apm_max {
       display: none;
       border: none; 
@@ -131,13 +145,11 @@
       padding: 0; 
       color: rgb(39, 37, 37);
     }
-
     .apm_baru{
       width: 30px; 
       display: none; 
       text-align: right;
     }
-
     .apm {
       border: 1px solid darkgray; 
       padding: 2px; 
@@ -150,7 +162,25 @@
   <div class="container">
     <h1 >ABAHQU <span style="font-size: 20px;">Lev.1p</span></h1>
     <p style="margin-bottom: 30px; padding-top: 0;">Alat Bantu Hafalan & Muraja'ah AlQuran</p>
-    <input type="file" id="fileInput" webkitdirectory directory multiple >    
+    <!--<input type="file" id="fileInput" webkitdirectory directory multiple > -->
+    
+    <div class="tabs">
+      <div class="tab active" data-tab="folder">Folder</div>
+      <div class="tab" data-tab="zip">ZIP</div>
+      <div class="tab" data-tab="file">File</div>
+      
+    </div>
+    <div id="folder" class="tab-content active">
+      <input type="file" webkitdirectory directory multiple id="folderInput">
+    </div>
+
+    <div id="zip" class="tab-content">
+      <input type="file" accept=".zip" id="zipInput">
+    </div>
+
+    <div id="file" class="tab-content">
+      <input type="file" multiple id="fileInput">
+    </div>
 
     <div style="width: 100%; display: flex; gap: 10px; margin-top: 20px; justify-content: center;" >
       <div >
@@ -183,7 +213,6 @@
         </div>
       </div>    
     </div>
-
 
     <div class="flexDiv" >
       <div class="flexDivInput">
@@ -243,48 +272,7 @@
     <button class="tombolService" id="tombolJ2S" >J2S</button>
     
     <div >    
-      <div id="isiFitur" style="display:none;">    
-        <ul style="text-align: left;margin: 10px; ">      
-          <li>[.........Lev.1_] sudah bisa menjalankan 1 file</li>
-          <li>[.........Lev.1_] URL dibuat dengan mengklik tombol input (browse)</li>
-          <li>[.........Lev.1_] file audio dijalankan setelah mengklik tombol "play" pada player</li>
-          <li>[.........Lev.1_] setelah file selesai, bisa dijalankan lagi dg menekan tombol play  </li>
-          <li>[.........Lev.1a] menampilkan indikator file audio siap dijalankan, setelah tombol browse/input diproses</li>
-          <li>[.........Lev.1a] sudah bisa mengupload banyak file </li>
-          <li>[.........Lev.1b] menampilkan nama file jika tombol play di klik, sebagai indikator bahwa file tersebut sedang diputar</li>    
-          <li>[.........Lev.1c] sudah bisa menjalankan banyak file </li>
-          <li>[.........Lev.1c] setelah audio 1 selesai, langsung memutar audio 2, begitu seterusnya </li>
-          <li>[.........Lev.1d] setelah semua file selesai diputar, player langsung kembali memutar file audio pertama </li>
-          <li>[.........Lev.1e] Tombol stop, prev dan next sudah tersedia dan bisa digunakan </li>
-          <li>[.........Lev.1f] tersedia pilihan mode dan pilihan jumlah putaran, namun belum berfungsi </li>
-          <li>[.........Lev.1g] tersedia fungsi pengkondisian 'jumlah pengulangan' berdasarkan pilihan 'mode' </li>
-          <li>[.........Lev.1g] tersedia fungsi konversi 'jumlah pengulangan' ke 'sekali/berulangkali' saat merubah nilai 'mode' dan 'ulang' </li>
-          <li>[.........Lev.1h] input mode dan Ulang dipindahkan keatas input file, dibawah baris judul' </li>
-          <li>[.........Lev.1h] mode ds (sekali atau berulang) sudah bisa berfungsi </li>
-          <li>[.........Lev.1i] ada penambahan indikator file ke / jumlah file, symbol a 0/0 = audio </li>
-          <li>[.........Lev.1i] ada penambahan indikator pengulangan ke / jumlah pengulangan berdasarkan pilihan Mode, symbol m 0/0 = mode </li>
-          <li>[.........Lev.1i] ada penambahan indikator putaran ke / jumlah putaran, symbol p 0/0 = putaran </li>
-          <li>[.........Lev.1i] ada sedikit penyesuaian layout  </li>
-          <li>[.........Lev.1j] mode d1 (dengar audi ganjil), dan mode d2 (dengar audio genap) sudah bisa berjalan  </li>
-          <li>[.........Lev.1k] mode db (dengar dan baca) serta mode bd (baca dan dengar) untuk satu putaran sudah bisa berjalan </li>
-          <li>[.........Lev.1k] ada tambahan fitur 'ruteku', berguna untuk mentracking pembacaan coding oleh website  </li>
-          <li>[.........Lev.1k] penambahan function 'pengaturanVolume', untuk penyederhanaan script</li>
-          <li>[.........Lev.1l] penambahan function aktif/nonaktifkan fungsi 'ruteku', beserta warna indikatornya </li>
-          <li>[.........Lev.1l] penambahan function 'juruHitung' sebagai counter file, putaran, angka-mode  </li>
-          <li>[.........Lev.1l] kendala: pada kasus audio di stop, kemudian ganti mode, maka angka 'juruHitung' jadi berlebih  </li>        
-          <li>[.........Lev.1m] perbaikan fungsi dan penempatan function ' juruHitung'  </li>   
-          <li>[.........Lev.1m] perbaikan penempatan function 'pengaturanVolume'</li>  
-          <li>[.........Lev.1m] fitur db (dengar dan baca) untuk banyak putaran sudah bisa berjalan</li>   
-          <li>[.........Lev.1n] fitur bd (baca dan dengar) untuk banyak putaran sudah bisa berjalan</li>   
-          <li>[.........Lev.1n] penambahan fitur ubah nilai counter</li> 
-          <li>[.........Lev.1o] sudah menggunakan pewarnaan</li> 
-          <li>[.........Lev.1o] tombol updatePerulangan di hilangkan, fungsinya dipindahkan ke tombol perulangan</li>
-          <li>[.........Lev.1o] konversi inline CSS ke internal CSS</li>
-          <li>[baru..Lev.1p] penambahan fitur 'genap-ganjil' jika diaktifkan maka mode genap dan ganjil akan dijalanakan bergantian</li>
-          <li>[baru..Lev.1p] penambahan fitur catatan, tempat menuliskan ide</li>
-          <li>[baru..Lev.1p] ganti fitur catatan menjadi refleksi, isi dukungan pengawas dan kepsek beserta link</li>
-        </ul>
-      </div>    
+      <div id="isiFitur" style="display:none;"></div>    
       <div id="rute" style="text-align: left;margin: 10px;"></div> 
       <div id="isiCatatan" style="display:none; border: 1px solid darkgray; padding: 2px; max-width: 358px;" >
         
@@ -310,25 +298,23 @@
           <label style="width: 100%;" for="noJuz">Pilih Juz: </label>
           <select class="inputSelect" id="noJuz">  
               <option value="" selected="true">-- Pilih Juz --</option> 
-          </select></div>
+          </select></div>a
         <div> 
           <label style="width: 100%;" for="noLembar">Pilih Lembar: </label>
           <select class="inputSelect" id="noLembar">  
               <option value="" selected="true">-- Pilih Lembar --</option> 
-          </select></div>
-
-        
+          </select></div>       
 
       </div>    
     </div> 
     <div style="text-align: center; margin: 10px;"> isi buku kunjungan <a href="https://forms.gle/36Z96ADDRotB9rnu6" target='_blank'>disini</a></div>
     <div style="text-align: center; margin: 10px;"> <a href="index.html" target='_blank'>Home</a></div>
 </div> 
- 
   
-  <script>
-                                                                    
-    const fileInput = document.getElementById('fileInput');    //deklarasi fileInput, audioPlayer, dan indikatorAudio diambil dari id yg sesuai
+  <script>                                                                    
+    const fileInput = document.getElementById('fileInput');    
+    const folderInput = document.getElementById('folderInput');  
+    const zipInput = document.getElementById('zipInput');  
     const mulaiSurat = document.getElementById('mulaiSurat'); 
     const mulaiAyat = document.getElementById('mulaiAyat'); 
     const sampaiSurat = document.getElementById('sampaiSurat'); 
@@ -366,7 +352,6 @@
     const noJuz = document.getElementById('noJuz'); 
     const noLembar = document.getElementById('noLembar'); 
 
-
     let tipe;    
     let frekuensi;     
     let varrayFile = [];
@@ -395,6 +380,19 @@
     let sampai_BarisKe;
     let mulai_BarisKe
 
+  const tabs = document.querySelectorAll(".tab");
+  const contents = document.querySelectorAll(".tab-content");
+
+  tabs.forEach(tab => {
+    tab.addEventListener("click", () => {
+      tabs.forEach(t => t.classList.remove("active"));
+      contents.forEach(c => c.classList.remove("active"));
+
+      tab.classList.add("active");
+      document.getElementById(tab.dataset.tab).classList.add("active");
+    });
+  });
+
     switch (mode.value){                                        // konversi: mode ke tipe
       case "bd": tipe = "2x"; angkaFrekMode = 2; break;
       case "db": tipe = "2x"; angkaFrekMode = 2; break;
@@ -403,23 +401,34 @@
       case "d2": tipe = "1x"; angkaFrekMode = 1; break;      
     }
 
-    tampilkanDivGanjilGenap()    
+    tampilkanDivGanjilGenap();  
     frekMode.textContent = `m 0/${angkaFrekMode}`;
     putaranKe.textContent = `p 0/${putaran.value}`;    
     putaran2frekuensi();     
 
     pengaturanVolume();
 
-    fileInput.addEventListener('change', function () {           //perubahan pada file input menjalankan script dalam {}                                                               
+    folderInput.addEventListener('change', function () {                                                                  
       //>>> Menyimpan input dalam array dan mengurutkan nama file
-      const arrayFile = Array.from(fileInput.files);             //variabel arrayFile menyimpan nilai array file dari fileInput
+      const arrayFile = Array.from(folderInput.files);           //variabel arrayFile menyimpan nilai array file dari fileInput      
       arrayFile.sort((a,b)=>a.name.localeCompare(b.name)); 
-      varrayFile = arrayFile;                                    //menyimpan nilai konstanta ke variabel supaya bisa dipakai di luar function     
-      //>>> mengambil nomor surat pertama dan nomor surat terakhir pada array
-      suratAwal = Number(arrayFile[0].name.slice(0,3));
-      suratAkhir = Number(arrayFile[arrayFile.length-1].name.slice(0,3));
-      ayatAwal = Number(arrayFile[0].name.slice(3,6));
-      ayatAkhir = Number(arrayFile[arrayFile.length-1].name.slice(3,6));      
+      varrayFile = arrayFile;                                    //menyimpan nilai konstanta ke variabel supaya bisa dipakai di luar function       
+      dariInput();  
+    }); 
+
+    fileInput.addEventListener('change', function () {                                                                  
+      //>>> Menyimpan input dalam array dan mengurutkan nama file
+      const arrayFile = Array.from(fileInput.files);           //variabel arrayFile menyimpan nilai array file dari fileInput      
+      arrayFile.sort((a,b)=>a.name.localeCompare(b.name)); 
+      varrayFile = arrayFile;                                    //menyimpan nilai konstanta ke variabel supaya bisa dipakai di luar function       
+      dariInput();  
+    }); 
+
+    function dariInput(){
+      suratAwal = Number(varrayFile[0].name.slice(0,3));
+      suratAkhir = Number(varrayFile[varrayFile.length-1].name.slice(0,3));
+      ayatAwal = Number(varrayFile[0].name.slice(3,6));
+      ayatAkhir = Number(varrayFile[varrayFile.length-1].name.slice(3,6));      
       
       //alert(suratAwal);
       //alert(suratAkhir);
@@ -441,18 +450,8 @@
         option.value = suratAwal-1+i;
         option.textContent = noKeNamaSurat(suratAwal-1+i) ;
         mulaiSurat.appendChild(option);
-      }
-
-    /*  //>>> membuat objek URL
-      varrayFile = arrayFile                                     //menyimpan nilai konstanta ke variabel supaya bisa dipakai di luar function    
-      if (nomor < arrayFile.length ) {                           
-        audioPlayer.src = URL.createObjectURL(arrayFile[0]);     //source dari audioPlayer = nilai fileURL = nilai URL file ke nol
-        indikatorAudio.textContent = `siap memutar audio`;       //teks yg tampil pada div dg id 'filename' = nama file ke nol 
-        audioKe.textContent = ` a ${nomor}/${varrayFile.length} `;       
-      }
-      pengaturanVolume();
-      */
-    }); 
+      }    
+    }
 
     function suratKeJumlahAyat(nomorSurat){
         const jumlahAyat = { 1:7, 2:286, 3:200, 4:176, 5:120, 6:165, 7:206, 8:75, 9:129, 10:109, 
