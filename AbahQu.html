@@ -600,29 +600,21 @@
         let selisih_MulaiSurat = nilaiMulaiSurat - suratAwal;            
          if (selisih_MulaiSurat == 0){       
             mulai_BarisKe = nilaiMulaiAyat - ayatAwal ;  
-            alert(`nilaiMulaiSurat: ${nilaiMulaiSurat}, suratAwal: ${suratAwal} selisih_MulaiSurat: ${selisih_MulaiSurat}, nilaiMulaiAyat: ${nilaiMulaiAyat}, ayatAwal: ${ayatAwal}, mulai_BarisKe: ${mulai_BarisKe} `);  
-          } else { 
-              alert(1);
-              mulai_BarisKe = 0;  
-              alert(2);           
-              for (let i =0; i< selisih_MulaiSurat; i++){
-                alert(3);
-                mulai_BarisKe = mulai_BarisKe + nilaiMulaiAyat + suratKeJumlahAyat(suratAwal + i) - ayatAwal;  
-                alert(4);         
+          } else {              
+              mulai_BarisKe = 0;                         
+              for (let i =0; i< selisih_MulaiSurat; i++){                
+                mulai_BarisKe = mulai_BarisKe + nilaiMulaiAyat + suratKeJumlahAyat(suratAwal + i) - ayatAwal;                         
               } 
-              alert(`nilaiMulaiSurat: ${nilaiMulaiSurat}, suratAwal: ${suratAwal} selisih_MulaiSurat: ${selisih_MulaiSurat}, nilaiMulaiAyat: ${nilaiMulaiAyat}, ayatAwal: ${ayatAwal}, mulai_BarisKe: ${mulai_BarisKe} `);  
           }
 
         let selisih_SampaiSurat = nilaiSampaiSurat - suratAwal;              
          if (selisih_SampaiSurat == 0){       
             sampai_BarisKe = nilaiSampaiAyat - ayatAwal ;  
-            alert(`nilaiSampaiSurat: ${nilaiSampaiSurat}, suratAwal: ${suratAwal} selisih_SampaiSurat: ${selisih_SampaiSurat}, nilaiSampaiAyat: ${nilaiSampaiAyat}, ayatAwal: ${ayatAwal}, sampai_BarisKe: ${sampai_BarisKe} `);
           } else { 
               sampai_BarisKe = 0;           
               for (let i =0; i< selisih_SampaiSurat; i++){
                 sampai_BarisKe = sampai_BarisKe + nilaiSampaiAyat + suratKeJumlahAyat(suratAwal + i) - ayatAwal;           
-              } 
-              alert(`nilaiSampaiSurat: ${nilaiSampaiSurat}, suratAwal: ${suratAwal} selisih_SampaiSurat: ${selisih_SampaiSurat}, nilaiSampaiAyat: ${nilaiSampaiAyat}, ayatAwal: ${ayatAwal}, sampai_BarisKe: ${sampai_BarisKe} `);
+              }
           }        
         BanyakBaris = sampai_BarisKe - mulai_BarisKe + 1;   
         alert(`BanyakBaris: ${BanyakBaris}`); 
