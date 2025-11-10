@@ -160,7 +160,7 @@
 </head>
 <body>
   <div class="container">
-    <h1 >ABAHQU <span style="font-size: 20px;">Lev.1p</span></h1>
+    <h1 >ABAHQU <span style="font-size: 20px;">Lev.1q</span></h1>
     <p style="margin-bottom: 30px; padding-top: 0;">Alat Bantu Hafalan & Muraja'ah AlQuran</p>
     <!--<input type="file" id="fileInput" webkitdirectory directory multiple > -->
     
@@ -298,7 +298,7 @@
           <label style="width: 100%;" for="noJuz">Pilih Juz: </label>
           <select class="inputSelect" id="noJuz">  
               <option value="" selected="true">-- Pilih Juz --</option> 
-          </select></div>a
+          </select></div>
         <div> 
           <label style="width: 100%;" for="noLembar">Pilih Lembar: </label>
           <select class="inputSelect" id="noLembar">  
@@ -355,7 +355,8 @@
     let tipe;    
     let frekuensi;     
     let varrayFile = [];
-    let nomor ;    
+    let nomor ;  
+    
     let dahPutar = 1; 
     let sembunyikan = "ya";
     let angkaFrekMode = 0;
@@ -378,7 +379,11 @@
     let ItemZsampaiAyat;  
     let BanyakBaris;
     let sampai_BarisKe;
-    let mulai_BarisKe
+    let mulai_BarisKe;
+    let noJenisInput = 1;
+    let blobAudio = null;
+    
+    
 
   const tabs = document.querySelectorAll(".tab");
   const contents = document.querySelectorAll(".tab-content");
@@ -410,31 +415,70 @@
 
     folderInput.addEventListener('change', function () {                                                                  
       //>>> Menyimpan input dalam array dan mengurutkan nama file
+      noJenisInput = 1;
       const arrayFile = Array.from(folderInput.files);           //variabel arrayFile menyimpan nilai array file dari fileInput      
       arrayFile.sort((a,b)=>a.name.localeCompare(b.name)); 
       varrayFile = arrayFile;                                    //menyimpan nilai konstanta ke variabel supaya bisa dipakai di luar function       
       dariInput();  
-    }); 
+    });
+
+    zipInput.addEventListener('change', async function () {
+      noJenisInput = 2;
+      const fileZIP = this.files[0];  
+      if (!fileZIP) return;
+      const zip = await JSZip.loadAsync(fileZIP);
+      const arrayFile = Object.values(zip.files)
+      .filter(f => !f.dir)   
+      .sort((a,b) => a.name.localeCompare(b.name));       
+      varrayFile = arrayFile; 
+
+      
+
+
+      dariInput();       
+    });
+
+    zipInput.addEventListener('click', async function () {
+       alert('maaf, belum berfungsi, masih pengembangan')      
+    });
 
     fileInput.addEventListener('change', function () {                                                                  
       //>>> Menyimpan input dalam array dan mengurutkan nama file
-      const arrayFile = Array.from(fileInput.files);           //variabel arrayFile menyimpan nilai array file dari fileInput      
+      noJenisInput = 3;
+      const arrayFile = Array.from(fileInput.files);           
       arrayFile.sort((a,b)=>a.name.localeCompare(b.name)); 
-      varrayFile = arrayFile;                                    //menyimpan nilai konstanta ke variabel supaya bisa dipakai di luar function       
+      varrayFile = arrayFile;                                   
       dariInput();  
     }); 
 
     function dariInput(){
-      suratAwal = Number(varrayFile[0].name.slice(0,3));
+      
+      let posisiKodeke_1Surat;
+      let posisiKodeke_NSurat;
+      let posisiKodeke_1Ayat;
+      let posisiKodeke_NAyat;
+      if(noJenisInput==2){
+        posisiKodeke_1Surat = 7;
+        posisiKodeke_NSurat = 10;
+        posisiKodeke_1Ayat = 10;
+        posisiKodeke_NAyat = 13;
+      } else {
+        posisiKodeke_1Surat = 0;
+        posisiKodeke_NSurat = 3;
+        posisiKodeke_1Ayat = 3;
+        posisiKodeke_NAyat = 6;
+      }
+      
+      /*suratAwal = Number(varrayFile[0].name.slice(0,3));
       suratAkhir = Number(varrayFile[varrayFile.length-1].name.slice(0,3));
       ayatAwal = Number(varrayFile[0].name.slice(3,6));
-      ayatAkhir = Number(varrayFile[varrayFile.length-1].name.slice(3,6));      
-      
-      //alert(suratAwal);
-      //alert(suratAkhir);
-      //alert(ayatAwal);
-      //alert(ayatAkhir);
-      
+      ayatAkhir = Number(varrayFile[varrayFile.length-1].name.slice(3,6));  */
+
+      suratAwal = Number(varrayFile[0].name.slice(posisiKodeke_1Surat,posisiKodeke_NSurat));      
+      suratAkhir = Number(varrayFile[varrayFile.length-1].name.slice(posisiKodeke_1Surat,posisiKodeke_NSurat));
+      ayatAwal = Number(varrayFile[0].name.slice(posisiKodeke_1Ayat,posisiKodeke_NAyat));
+      ayatAkhir = Number(varrayFile[varrayFile.length-1].name.slice(posisiKodeke_1Ayat,posisiKodeke_NAyat));         
+     
       //>>> menampilkan pilihan awal = "pilih"
       const defaultOption =document.createElement("option");
       mulaiSurat.textContent="";
@@ -469,7 +513,6 @@
     mulaiSurat.addEventListener('change', function () {       
       //>>> membuat pilihan/ option untuk "sampai surat"
       nilaiMulaiSurat = Number(mulaiSurat.value) ;
-
       sampaiSurat.textContent="";
       const defaultOption =document.createElement("option");
       defaultOption.textContent = "pilih";
@@ -482,13 +525,11 @@
         option.value = nilaiMulaiSurat-1+i;
         option.textContent = noKeNamaSurat(nilaiMulaiSurat-1+i);
         sampaiSurat.appendChild(option);
-      }          
-
+      }
       // $:catatan jangan meletakkan "let" dalam block jika variabelnya digunakan juga diluar blok
       if (nilaiMulaiSurat == suratAwal){      
         ItemAmulaiAyat = ayatAwal;
-        ItemZmulaiAyat = suratKeJumlahAyat(nilaiMulaiSurat);
-        
+        ItemZmulaiAyat = suratKeJumlahAyat(nilaiMulaiSurat);        
       } else {
           ItemAmulaiAyat = 1;
           if (nilaiMulaiSurat == suratAkhir){  
@@ -496,8 +537,7 @@
           } else {
             ItemZmulaiAyat = suratKeJumlahAyat(nilaiMulaiSurat);
           }
-      }
-      
+      }      
       jumlahItem = ItemZmulaiAyat-ItemAmulaiAyat;        
 
       const defaultOption2 =document.createElement("option");
@@ -512,7 +552,7 @@
           option.value = ItemAmulaiAyat + i -1;
           option.textContent =  ItemAmulaiAyat + i -1;
           mulaiAyat.appendChild(option);
-        }         
+        }       
         
     });
 
@@ -520,8 +560,7 @@
      
       nilaiMulaiSurat = Number(mulaiSurat.value);      
       nilaiMulaiAyat = Number(mulaiAyat.value);       
-      nilaiSampaiSurat = Number(sampaiSurat.value);  
-        
+      nilaiSampaiSurat = Number(sampaiSurat.value);          
       if (nilaiSampaiSurat == nilaiMulaiSurat){      
         ItemAsampaiAyat = nilaiMulaiAyat;         
         ItemZsampaiAyat = suratKeJumlahAyat(nilaiSampaiSurat);        
@@ -532,8 +571,7 @@
           } else {            
             ItemZsampaiAyat = suratKeJumlahAyat(nilaiSampaiSurat);
           }
-      }
-      
+      }      
       jumlahItem = ItemZsampaiAyat-ItemAsampaiAyat; 
       const defaultOption2 =document.createElement("option");
         sampaiAyat.textContent="";
@@ -541,8 +579,7 @@
         defaultOption2.value = "";
         defaultOption2.disabled = true;
         defaultOption2.selected = true;
-        sampaiAyat.appendChild(defaultOption2); 
-        
+        sampaiAyat.appendChild(defaultOption2);         
         for (let i = 1; i <= jumlahItem + 1; i++){
           const option = document.createElement("option");
           option.value = ItemAsampaiAyat + i -1;
@@ -552,66 +589,75 @@
     });
 
     sampaiAyat.addEventListener('change', function () { 
+       
+
       nilaiMulaiSurat = Number(mulaiSurat.value) ;
       nilaiMulaiAyat = Number(mulaiAyat.value)  ;
       nilaiSampaiSurat = Number(sampaiSurat.value) ;      
-      nilaiSampaiAyat = Number(sampaiAyat.value) ;
-       
-      if (nilaiMulaiSurat !== "" && nilaiMulaiAyat !== "" && nilaiSampaiSurat !== "" && nilaiSampaiAyat !== ""){          
-
-        ///////////////////
-        let selisih_MulaiSurat = nilaiMulaiSurat-suratAwal;        
-        mulai_BarisKe = 0;         
-        mulai_BarisKe = mulai_BarisKe + nilaiMulaiAyat - ayatAwal ;          
-        if (selisih_MulaiSurat > 0){ 
-          for (let i =0; i< selisih_MulaiSurat; i++){
-            mulai_BarisKe = mulai_BarisKe + suratKeJumlahAyat(suratAwal + i);           
-          } 
-        }       
-                  
-        //alert(`nilaiMulaiSurat ${nilaiMulaiSurat} dan suratAwal ${suratAwal} dan selisih_MulaiSurat ${selisih_MulaiSurat} nilaiMulaiAyat ${nilaiMulaiAyat}`);
-        
-        /////////////////////
-        let selisih_SampaiSurat = nilaiSampaiSurat-suratAwal;        
-        sampai_BarisKe = 0;         
-        sampai_BarisKe = sampai_BarisKe + nilaiSampaiAyat - ayatAwal ;         
-        if (selisih_MulaiSurat > 0){ 
-          for (let i =0; i< selisih_SampaiSurat; i++){
-            sampai_BarisKe = sampai_BarisKe + suratKeJumlahAyat(suratAwal + i);            
-          } 
-        }         
-        
-        BanyakBaris = sampai_BarisKe - mulai_BarisKe;
-      //>>> membuat objek URL
-
-      
-      nomor =  mulai_BarisKe;                                   
-      
-        audioPlayer.src = URL.createObjectURL(varrayFile[nomor]);     //source dari audioPlayer = nilai fileURL = nilai URL file ke nol
-        indikatorAudio.textContent = `audio siap ..`;            //teks yg tampil pada div dg id 'filename' = nama file ke nol 
-        audioKe.textContent = ` a ${nomor}/${sampai_BarisKe} `;        
-      pengaturanVolume();
-      }
-    });
-
-    mulaiAyat.addEventListener('change', function () { 
-      
-    });
-
-
-
-    /*function tigaDigitkan(nilaiTarget){
-      if (String(nilaiTarget).length ==3){
-          nilaiTarget = nilaiTarget;
-        } else {
-          if (String(nilaiTarget).length ==2){
-            nilaiTarget = "0" + nilaiTarget;
-          } else {
-              nilaiTarget = "00" + nilaiTarget;
+      nilaiSampaiAyat = Number(sampaiAyat.value) ; 
+          
+      if (nilaiMulaiSurat !== "" && nilaiMulaiAyat !== "" && nilaiSampaiSurat !== "" && nilaiSampaiAyat !== ""){ 
+        let selisih_MulaiSurat = nilaiMulaiSurat - suratAwal;            
+         if (selisih_MulaiSurat == 0){       
+            mulai_BarisKe = nilaiMulaiAyat - ayatAwal ;  
+            alert(`nilaiMulaiSurat: ${nilaiMulaiSurat}, suratAwal: ${suratAwal} selisih_MulaiSurat: ${selisih_MulaiSurat}, nilaiMulaiAyat: ${nilaiMulaiAyat}, ayatAwal: ${ayatAwal}, mulai_BarisKe: ${mulai_BarisKe} `);  
+          } else { 
+              alert(1);
+              mulai_BarisKe = 0;  
+              alert(2);           
+              for (let i =0; i< selisih_MulaiSurat; i++){
+                alert(3);
+                mulai_BarisKe = mulai_BarisKe + nilaiMulaiAyat + suratKeJumlahAyat(suratAwal + i) - ayatAwal;  
+                alert(4);         
+              } 
+              alert(`nilaiMulaiSurat: ${nilaiMulaiSurat}, suratAwal: ${suratAwal} selisih_MulaiSurat: ${selisih_MulaiSurat}, nilaiMulaiAyat: ${nilaiMulaiAyat}, ayatAwal: ${ayatAwal}, mulai_BarisKe: ${mulai_BarisKe} `);  
           }
+
+        let selisih_SampaiSurat = nilaiSampaiSurat - suratAwal;              
+         if (selisih_SampaiSurat == 0){       
+            sampai_BarisKe = nilaiSampaiAyat - ayatAwal ;  
+            alert(`nilaiSampaiSurat: ${nilaiSampaiSurat}, suratAwal: ${suratAwal} selisih_SampaiSurat: ${selisih_SampaiSurat}, nilaiSampaiAyat: ${nilaiSampaiAyat}, ayatAwal: ${ayatAwal}, sampai_BarisKe: ${sampai_BarisKe} `);
+          } else { 
+              sampai_BarisKe = 0;           
+              for (let i =0; i< selisih_SampaiSurat; i++){
+                sampai_BarisKe = sampai_BarisKe + nilaiSampaiAyat + suratKeJumlahAyat(suratAwal + i) - ayatAwal;           
+              } 
+              alert(`nilaiSampaiSurat: ${nilaiSampaiSurat}, suratAwal: ${suratAwal} selisih_SampaiSurat: ${selisih_SampaiSurat}, nilaiSampaiAyat: ${nilaiSampaiAyat}, ayatAwal: ${ayatAwal}, sampai_BarisKe: ${sampai_BarisKe} `);
+          }        
+        BanyakBaris = sampai_BarisKe - mulai_BarisKe + 1;   
+        alert(`BanyakBaris: ${BanyakBaris}`); 
+        //>>> membuat objek URL        
+        nomor =  mulai_BarisKe; 
+        if (noJenisInput !== 2) {            
+            audioPlayer.src = URL.createObjectURL(varrayFile[nomor]);   //source dari audioPlayer = nilai fileURL = nilai URL file ke nol
+        } else {
+          buatURLZip();          
         }
-      return nilaiTarget;
-    }*/
+        indikatorAudio.textContent = `audio siap ..`;                   //teks yg tampil pada div dg id 'filename' = nama file ke nol 
+        audioKe.textContent = ` a ${nomor}/${sampai_BarisKe} `;        
+        pengaturanVolume();
+      }
+    }); 
+    
+    async function buatURLZip() { 
+
+        //let selectedFiles = []; 
+        //selectedFiles = varrayFile.slice(nomor+1, BanyakBaris);
+        const file = varrayFile[nomor];
+        const blob = await file.async("blob");
+        blobAudio = blob; 
+        const url = URL.createObjectURL(blobAudio);
+        audioPlayer.src = url; 
+    } 
+
+     function putarAudio(){     
+    if (noJenisInput !== 2) {            
+            audioPlayer.src = URL.createObjectURL(varrayFile[nomor]);   //source dari audioPlayer = nilai fileURL = nilai URL file ke nol
+        } else {
+            buatURLZip();                     
+        }                                                              
+      audioPlayer.play();                                               //memutar file audio      
+    }
 
     function noKeNamaSurat(nomorSurat){
         const namaSurat = { 1:"1. Al-Fatihah", 2:"2. Al-Baqarah", 3:"3. Ali 'Imran", 4:"4. An-Nisa'", 5:"5. Al-Ma'idah", 6:"6. Al-An'am", 
@@ -635,18 +681,43 @@
       return namaSurat[nomorSurat];
     }
 
-    audioPlayer.addEventListener('play', function (){   //fRute(" Play()");     
+    audioPlayer.addEventListener('play', function (){     
       juruTulis(); 
     });
 
-    function juruTulis(){                                           //fRute(" juruTulis()"); 
-      indikatorAudio.textContent = varrayFile[nomor].name;          //fRute(" 9");                       //teks pada variabel indikatorAudio = nama audio yg sedang diputar
-      audioKe.textContent = ` a ${nomor+1}/${sampai_BarisKe}/${varrayFile.length} `;  //fRute(" 10");      
-      putaranKe.textContent = `p ${dahPutar}/${putaran.value}`;     //fRute(" 11");
-      frekMode.textContent = ` m ${frekModeKe}/${angkaFrekMode} `;  //fRute(" 12");
+    function juruTulis(){                                          
+      indikatorAudio.textContent = varrayFile[nomor].name;                               //teks pada variabel indikatorAudio = nama audio yg sedang diputar
+      audioKe.textContent = ` a ${nomor}/${sampai_BarisKe}/${varrayFile.length} `;      
+      putaranKe.textContent = `p ${dahPutar}/${putaran.value}`;     
+      frekMode.textContent = ` m ${frekModeKe}/${angkaFrekMode} `; 
     }
 
-    audioPlayer.addEventListener('ended', function (){  //fRute(" Ended()");      //klik tombol play, maka akan menjalankan: 
+    function juruHitung(){  
+      if (frekModeKe < angkaFrekMode){                  
+        frekModeKe ++;                                  
+      } else {                                          
+          frekModeKe = 1;                               
+        if (dahPutar < putaran.value){                  
+          dahPutar ++;                                  
+        } else {                                        
+          dahPutar = 1;                                 
+          if ((nomor)<sampai_BarisKe){                                 
+              nomor ++;                                     
+          } else {                                     
+            nomor = mulai_BarisKe;                                  
+            if (modeGanjilGenap.checked == true){      
+              if (mode.value == "d1"){                  
+                mode.value = "d2";                      
+              } else if (mode.value == "d2"){            
+                mode.value = "d1";                      
+              }
+            }                              
+          }
+        }
+      }
+    }
+
+    audioPlayer.addEventListener('ended', function (){       //klik tombol play, maka akan menjalankan: 
                                                         
       juruHitung();                                      
       juruTulis();                                      
@@ -666,7 +737,7 @@
           }
         }
 
-      } else if (tipe == "2x") {                        //fRute(" tipe:".concat(tipe));
+      } else if (tipe == "2x") {                        
         if (frekuensi == "sekali") { 
           if (frekModeKe == 2){ 
             audioPlayer.currentTime = 0;
@@ -676,22 +747,22 @@
             pengaturanVolume();
             putarAudio();
           }
-        } else if(frekuensi == "berulangkali"){         //fRute(" frekuensi:".concat(frekuensi));             
-          if (frekModeKe == 2){                         //fRute(" frekModeKe:".concat(frekModeKe)); 
+        } else if(frekuensi == "berulangkali"){               
+          if (frekModeKe == 2){                        
             audioPlayer.currentTime = 0;                 
             pengaturanVolume();                         
             audioPlayer.play();                          
-          } else if (frekModeKe == 1){                  //fRute(" frekModeKe:".concat(frekModeKe));           
-            if (dahPutar < putaran.value){              //fRute(" dahPutar<".concat(putaran.value)); 
-              if (dahPutar == 1){                       //fRute(" dahPutar=1"); 
+          } else if (frekModeKe == 1){                          
+            if (dahPutar < putaran.value){              
+              if (dahPutar == 1){                      
                 pengaturanVolume();                       
                 putarAudio();
-              } else {                                  //fRute(" dahPutar<>1"); 
+              } else {                                 
                 audioPlayer.currentTime = 0;               
                 pengaturanVolume();                        
                 audioPlayer.play();                       
               }                
-            } else {                                    //fRute(" dahPutar>=".concat(putaran.value));            
+            } else {                                            
               pengaturanVolume();                       
               putarAudio();                              
             }
@@ -700,20 +771,20 @@
       }
     });
 
-    function pengaturanVolume(){                        fRute(" pengVol()");
-      if (tipe == "1x"){                                fRute(" tipe:".concat(tipe)); 
+    function pengaturanVolume(){                        
+      if (tipe == "1x"){                                
         switch (mode.value){                                       // konversi: mode ke audio_volume: di awal
           case "ds": audioPlayer.muted = false; break;
           case "d1": audioPlayer.muted = ((nomor+1) % 2 !== 0) ? false : true; break;
           case "d2": audioPlayer.muted = ((nomor+1) % 2 === 0) ? false : true; break;
         }
-      } else if (tipe == "2x"){                         fRute(" tipe:".concat(tipe)); 
-          if (frekModeKe == 1){                         fRute(" frekModeKe:".concat(frekModeKe)); 
+      } else if (tipe == "2x"){                         
+          if (frekModeKe == 1){                         
             switch (mode.value){                          
               case "db": audioPlayer.muted = false; break;
               case "bd": audioPlayer.muted = true; break;              
             }
-          } else if (frekModeKe == 2){                  fRute(" frekModeKe:".concat(frekModeKe)); 
+          } else if (frekModeKe == 2){                  
             switch (mode.value){                          
               case "db": audioPlayer.muted = true; break;
               case "bd": audioPlayer.muted = false; break;              
@@ -722,37 +793,9 @@
       }
     }    
 
-    function putarAudio(){                              //fRute(" PutarAudio()");                                                
-      
-      audioPlayer.src = URL.createObjectURL(varrayFile[nomor]);   //membuat URL untuk source audio                                                             
-      audioPlayer.play();                                         //memutar file audio      
-    }
+   
 
-    function juruHitung(){                              //fRute(" juruHitung()"); 
-
-      if (frekModeKe < angkaFrekMode){                  //fRute(" frekModeKe<".concat(angkaFrekMode)); 
-        frekModeKe ++;                                  
-      } else {                                          //fRute(" frekModeKe>=".concat(angkaFrekMode)); 
-          frekModeKe = 1;                               
-        if (dahPutar < putaran.value){                  //fRute(" dahPutar<".concat(putaran.value)); 
-          dahPutar ++;                                  
-        } else {                                        //fRute(" dahPutar>=".concat(putaran.value)); 
-          dahPutar = 1;                                 
-          if ((nomor+1)<sampai_BarisKe){             //fRute(" (nomor+1)<".concat(varrayFile.length)); 
-            nomor ++;                                   
-          } else {                                      //fRute(" (nomor+1)>=".concat(varrayFile.length)); 
-            nomor = mulai_BarisKe;                                  //fRute(" (nomor)=".concat(nomor)); 
-            if (modeGanjilGenap.checked == true){       //fRute(" modeGanjilGenap.value ==".concat(modeGanjilGenap.value)); 
-              if (mode.value == "d1"){                  //fRute(" mode.value ==".concat(mode.value)); 
-                mode.value = "d2";                      //fRute(" mode.value =".concat(mode.value)); 
-              } else if (mode.value == "d2"){           //fRute(" mode.value ==".concat(mode.value)); 
-                mode.value = "d1";                      //fRute(" mode.value =".concat(mode.value)); 
-              }
-            }                              
-          }
-        }
-      }
-    }
+    
 
     // Tombol STOP
     stopButton.addEventListener('click', function () {
