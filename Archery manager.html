@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asisten Latihan Memanah</title>
+    <style>
+        :root {
+            --bg-color: #121212;
+            --card-bg: #1e1e1e;
+            --accent-color: #d4af37; /* Warna emas elegan */
+            --text-color: #ffffff;
+            --text-secondary: #aaaaaa;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .container {
+            text-align: center;
+            padding: 2rem;
+            max-width: 400px;
+            width: 90%;
+        }
+
+        /* Animasi Transisi Elegan */
+        .screen {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.8s ease-in-out;
+        }
+
+        .screen.active {
+            display: block;
+            opacity: 1;
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            color: var(--accent-color);
+            letter-spacing: 1px;
+            line-height: 1.4;
+        }
+
+        p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+
+        /* Form Input */
+        .form-group {
+            margin-bottom: 1.5rem;
+            text-align: left;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        input {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #333;
+            background-color: var(--card-bg);
+            color: var(--text-color);
+            border-radius: 8px;
+            box-sizing: border-box;
+            font-size: 1rem;
+            transition: border 0.3s;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: var(--accent-color);
+        }
+
+        /* Tombol */
+        button {
+            background-color: var(--accent-color);
+            color: #000;
+            border: none;
+            padding: 0.8rem 2rem;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 1rem;
+            transition: transform 0.2s;
+        }
+
+        button:active {
+            transform: scale(0.98);
+        }
+
+        /* Status Latihan */
+        .status-box {
+            font-size: 1.8rem;
+            margin: 2rem 0;
+            color: var(--accent-color);
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Layar 1: Selamat Datang -->
+        <div id="screen1" class="screen active">
+            <h1>Selamat Berlatih Memanah bersama Arrisalah Archery</h1>
+        </div>
+
+        <!-- Layar 2: Bersiap Siaga -->
+        <div id="screen2" class="screen">
+            <h1>Anda akan melakukan latihan dinamis, Silahkan tembak target yang disebut, bersiap siagalah!</h1>
+        </div>
+
+        <!-- Layar 3: Form Pengaturan -->
+        <div id="screen3" class="screen">
+            <h2 style="color: var(--accent-color); margin-bottom: 2rem;">Pengaturan Target</h2>
+            <div class="form-group">
+                <label for="jumlahTarget">Jumlah Pilihan Target</label>
+                <input type="number" id="jumlahTarget" value="3" min="1">
+            </div>
+            <div class="form-group">
+                <label for="t1">Rentang Waktu Awal (t1 dalam detik)</label>
+                <input type="number" id="t1" value="2" min="1">
+            </div>
+            <div class="form-group">
+                <label for="t2">Rentang Waktu Akhir (t2 dalam detik)</label>
+                <input type="number" id="t2" value="7" min="1">
+            </div>
+            <button onclick="mulaiLatihan()">Mulai</button>
+        </div>
+
+        <!-- Layar 4: Latihan Berjalan -->
+        <div id="screen4" class="screen">
+            <h1>Latihan Berjalan</h1>
+            <p>Dengarkan instruksi target secara acak...</p>
+            <div id="statusLatihan" class="status-box">Mempersiapkan...</div>
+            <button onclick="stopLatihan()" style="background-color: #cc0000; color: white;">Selesai</button>
+        </div>
+    </div>
+
+    <script>
+        // Alur pembuka otomatis saat halaman dimuat
+        setTimeout(() => {
+            switchScreen('screen1', 'screen2');
+            setTimeout(() => {
+                switchScreen('screen2', 'screen3');
+            }, 4000);
+        }, 3000);
+
+        function switchScreen(fromId, toId) {
+            const fromScreen = document.getElementById(fromId);
+            const toScreen = document.getElementById(toId);
+            
+            fromScreen.style.opacity = '0';
+            setTimeout(() => {
+                fromScreen.classList.remove('active');
+                toScreen.classList.add('active');
+                setTimeout(() => {
+                    toScreen.style.opacity = '1';
+                }, 50);
+            }, 800);
+        }
+
+        // Fungsi Audio & Suara Target
+        function bunyikanAlarm(nomorTarget) {
+            const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            const oscillator = audioCtx.createOscillator();
+            const gainNode = audioCtx.createGain();
+
+            oscillator.connect(gainNode);
+            gainNode.connect(audioCtx.destination);
+
+            oscillator.type = 'sine';
+            oscillator.frequency.setValueAtTime(400 + (nomorTarget * 100), audioCtx.currentTime); 
+            
+            gainNode.gain.setValueAtTime(1, audioCtx.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.6);
+
+            oscillator.start(audioCtx.currentTime);
+            oscillator.stop(audioCtx.currentTime + 0.6);
+
+            // Text-to-Speech menyebutkan nomor target
+            const ucapan = new SpeechSynthesisUtterance(`Target ${nomorTarget}`);
+            ucapan.lang = 'id-ID';
+            ucapan.rate = 1.3;
+            window.speechSynthesis.speak(ucapan);
+        }
+
+        // Logika Pengulangan Tanpa Batas (Looping)
+        let timerLatihan = null;
+        let sedangLatihan = false;
+
+        function mulaiLatihan() {
+            const jumlahTarget = parseInt(document.getElementById('jumlahTarget').value);
+            const t1 = parseFloat(document.getElementById('t1').value);
+            const t2 = parseFloat(document.getElementById('t2').value);
+
+            if (t1 >= t2) {
+                alert("t2 harus lebih besar dari t1!");
+                return;
+            }
+
+            switchScreen('screen3', 'screen4');
+            sedangLatihan = true;
+            
+            // Mulai siklus alarm pertama
+            jadwalkanAlarmBerikutnya(jumlahTarget, t1, t2);
+        }
+
+        function jadwalkanAlarmBerikutnya(maxTarget, t1, t2) {
+            if (!sedangLatihan) return;
+
+            // Hitung jeda acak dalam rentang t1 dan t2 (milidetik)
+            const waktuAcakDetik = Math.random() * (t2 - t1) + t1;
+
+            document.getElementById('statusLatihan').innerText = `Fokus...`;
+
+            timerLatihan = setTimeout(() => {
+                // Pilih target secara acak murni dari angka 1 sampai jumlahTarget
+                const targetAcak = Math.floor(Math.random() * maxTarget) + 1;
+                
+                document.getElementById('statusLatihan').innerText = `TARGET ${targetAcak}`;
+                bunyikanAlarm(targetAcak);
+                
+                // Panggil kembali fungsi ini untuk loop tanpa batas
+                jadwalkanAlarmBerikutnya(maxTarget, t1, t2);
+            }, waktuAcakDetik * 1000);
+        }
+
+        function stopLatihan() {
+            sedangLatihan = false;
+            clearTimeout(timerLatihan);
+            window.speechSynthesis.cancel();
+            switchScreen('screen4', 'screen3');
+        }
+    </script>
+</body>
+</html>
