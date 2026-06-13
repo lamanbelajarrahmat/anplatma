@@ -171,9 +171,9 @@ button{
 
     <h1>Latihan Berjalan</h1>
 
-    <p>Target secara acak...</p>
+    <p>Target ditentukan secara acak...</p>
 
-    <p>Dengarkan instruksi</p>
+    <p>silahkan tembak ke ...</p>
 
     <div id="status" class="status">
         FOKUS...
@@ -213,8 +213,32 @@ setTimeout(()=>{
 
 },3000);
 
+// Coba memulai musik intro
+window.addEventListener("load", () => {
+
+    introAudio.play().catch(() => {
+
+        console.log(
+            "Browser menunggu interaksi pengguna untuk memulai audio"
+        );
+
+    });
+
+});
+
 
 /* Audio */
+
+// ==========================
+// MUSIK INTRO
+// ==========================
+
+const introAudio = new Audio(
+    "Archery Manager Audio/intro.mp3"
+);
+
+introAudio.loop = true;
+introAudio.volume = 0.4;
 
 const audioTargets={};
 
@@ -349,6 +373,8 @@ function mulaiLatihan(){
         return;
     }
 
+    introAudio.pause();
+    introAudio.currentTime = 0;
     running=true;
 
     tampil("screen4");
@@ -393,7 +419,7 @@ function bunyiBip(){
     gain1.connect(ctx.destination);
 
     osc1.type = "sine";
-    osc1.frequency.value = 400;
+    osc1.frequency.value = 700;
 
     gain1.gain.setValueAtTime(
         0.05,
