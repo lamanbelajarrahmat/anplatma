@@ -1,254 +1,428 @@
 <!DOCTYPE html>
+
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Asisten Latihan Memanah</title>
-    <style>
-        :root {
-            --bg-color: #121212;
-            --card-bg: #1e1e1e;
-            --accent-color: #d4af37; /* Warna emas elegan */
-            --text-color: #ffffff;
-            --text-secondary: #aaaaaa;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            margin: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            overflow: hidden;
-        }
+<title>Ar Risalah Archery Trainer</title>
 
-        .container {
-            text-align: center;
-            padding: 2rem;
-            max-width: 400px;
-            width: 90%;
-        }
+<style>
 
-        /* Animasi Transisi Elegan */
-        .screen {
-            display: none;
-            opacity: 0;
-            transition: opacity 0.8s ease-in-out;
-        }
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
 
-        .screen.active {
-            display: block;
-            opacity: 1;
-        }
+body{
+    background:#0b0f14;
+    color:white;
+    font-family:Segoe UI,Tahoma,sans-serif;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    overflow:hidden;
+}
 
-        h1 {
-            font-size: 2.2rem;
-            color: var(--accent-color);
-            letter-spacing: 1px;
-            line-height: 1.4;
-        }
+.container{
+    width:90%;
+    max-width:500px;
+    text-align:center;
+}
 
-        p {
-            color: var(--text-secondary);
-            font-size: 1.1rem;
-        }
+.screen{
+    display:none;
+    animation:fadeIn 1s;
+}
 
-        /* Form Input */
-        .form-group {
-            margin-bottom: 1.5rem;
-            text-align: left;
-        }
+.screen.active{
+    display:block;
+}
 
-        label {
-            display: block;
-            margin-bottom: 0.5rem;
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-        }
+@keyframes fadeIn{
+    from{opacity:0;}
+    to{opacity:1;}
+}
 
-        input {
-            width: 100%;
-            padding: 0.8rem;
-            border: 1px solid #333;
-            background-color: var(--card-bg);
-            color: var(--text-color);
-            border-radius: 8px;
-            box-sizing: border-box;
-            font-size: 1rem;
-            transition: border 0.3s;
-        }
+h1{
+    color:#ffd700;
+    margin-bottom:20px;
+    line-height:1.5;
+}
 
-        input:focus {
-            outline: none;
-            border-color: var(--accent-color);
-        }
+h2{
+    color:#ffd700;
+    margin-bottom:20px;
+}
 
-        /* Tombol */
-        button {
-            background-color: var(--accent-color);
-            color: #000;
-            border: none;
-            padding: 0.8rem 2rem;
-            font-size: 1.1rem;
-            font-weight: bold;
-            border-radius: 8px;
-            cursor: pointer;
-            width: 100%;
-            margin-top: 1rem;
-            transition: transform 0.2s;
-        }
+p{
+    color:#ccc;
+    margin-bottom:15px;
+}
 
-        button:active {
-            transform: scale(0.98);
-        }
+.form-group{
+    margin-bottom:15px;
+    text-align:left;
+}
 
-        /* Status Latihan */
-        .status-box {
-            font-size: 1.8rem;
-            margin: 2rem 0;
-            color: var(--accent-color);
-            font-weight: bold;
-        }
-    </style>
+label{
+    display:block;
+    margin-bottom:5px;
+}
+
+input{
+    width:100%;
+    padding:12px;
+    border:none;
+    border-radius:8px;
+    background:#1c2330;
+    color:white;
+}
+
+button{
+    width:100%;
+    padding:14px;
+    border:none;
+    border-radius:8px;
+    font-size:18px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.btn-start{
+    background:#ffd700;
+    color:black;
+}
+
+.btn-stop{
+    background:#d10000;
+    color:white;
+}
+
+.status{
+    margin-top:20px;
+    font-size:36px;
+    color:#00ff88;
+    font-weight:bold;
+    text-shadow:0 0 15px #00ff88;
+}
+
+.sub{
+    color:#aaaaaa;
+    margin-top:10px;
+}
+
+</style>
+
 </head>
+
 <body>
 
-    <div class="container">
-        <!-- Layar 1: Selamat Datang -->
-        <div id="screen1" class="screen active">
-            <h1>Selamat Berlatih Memanah bersama Arrisalah Archery</h1>
-        </div>
+<div class="container">
 
-        <!-- Layar 2: Bersiap Siaga -->
-        <div id="screen2" class="screen">
-            <h1>Anda akan melakukan latihan dinamis, Silahkan tembak target yang disebut, bersiap siagalah!</h1>
-        </div>
 
-        <!-- Layar 3: Form Pengaturan -->
-        <div id="screen3" class="screen">
-            <h2 style="color: var(--accent-color); margin-bottom: 2rem;">Pengaturan Target</h2>
-            <div class="form-group">
-                <label for="jumlahTarget">Jumlah Pilihan Target</label>
-                <input type="number" id="jumlahTarget" value="3" min="1">
-            </div>
-            <div class="form-group">
-                <label for="t1">Rentang Waktu Awal (t1 dalam detik)</label>
-                <input type="number" id="t1" value="2" min="1">
-            </div>
-            <div class="form-group">
-                <label for="t2">Rentang Waktu Akhir (t2 dalam detik)</label>
-                <input type="number" id="t2" value="7" min="1">
-            </div>
-            <button onclick="mulaiLatihan()">Mulai</button>
-        </div>
+<!-- Screen 1 -->
+<div id="screen1" class="screen active">
+    <h1>
+        Selamat Berlatih Panahan<br>
+        Bersama Ar Risalah Archery
+    </h1>
+</div>
 
-        <!-- Layar 4: Latihan Berjalan -->
-        <div id="screen4" class="screen">
-            <h1>Latihan Berjalan</h1>
-            <p>Dengarkan instruksi target secara acak...</p>
-            <div id="statusLatihan" class="status-box">Mempersiapkan...</div>
-            <button onclick="stopLatihan()" style="background-color: #cc0000; color: white;">Selesai</button>
-        </div>
+<!-- Screen 2 -->
+<div id="screen2" class="screen">
+    <h1>
+        Anda akan melakukan latihan dinamis.
+        Tembaklah target yang disebutkan.
+        Bersiap siagalah ... !
+    </h1>
+</div>
+
+<!-- Screen 3 -->
+<div id="screen3" class="screen">
+
+    <h2>Pengaturan Latihan</h2>
+
+    <div class="form-group">
+        <label>Jumlah Target (1-8)</label>
+        <input type="number" id="jumlahTarget" min="1" max="8" value="3">
     </div>
 
-    <script>
-        // Alur pembuka otomatis saat halaman dimuat
+    <div class="form-group">
+        <label>Rentang Waktu 1 (detik)</label>
+        <input type="number" id="t1" value="2">
+    </div>
+
+    <div class="form-group">
+        <label>Rentang Waktu 2 (detik)</label>
+        <input type="number" id="t2" value="7">
+    </div>
+
+    <button class="btn-start" onclick="mulaiLatihan()">
+        MULAI
+    </button>
+
+</div>
+
+<!-- Screen 4 -->
+<div id="screen4" class="screen">
+
+    <h1>Latihan Berjalan</h1>
+
+    <p>Target secara acak...</p>
+
+    <p>Dengarkan instruksi</p>
+
+    <div id="status" class="status">
+        FOKUS...
+    </div>
+
+    <br>
+
+    <button class="btn-stop" onclick="stopLatihan()">
+        SELESAI
+    </button>
+
+</div>
+
+
+</div>
+
+<script>
+
+function tampil(id){
+
+    document.querySelectorAll(".screen")
+    .forEach(x=>x.classList.remove("active"));
+
+    document
+    .getElementById(id)
+    .classList.add("active");
+}
+
+/* Pembuka */
+
+setTimeout(()=>{
+    tampil("screen2");
+
+    setTimeout(()=>{
+        tampil("screen3");
+    },5000);
+
+},3000);
+
+
+/* Audio */
+
+const audioTargets={};
+
+for(let i=1;i<=8;i++){
+
+    audioTargets[i]=new Audio(
+    `Archery Manager Audio/target${i}.mp3`
+    );
+
+    audioTargets[i].preload="auto";
+}
+
+
+/* Variabel */
+
+let timer=null;
+let running=false;
+let lastTarget=null;
+
+
+/* Ambil target acak */
+
+function targetAcak(max){
+
+    let t;
+
+    do{
+
+        t=Math.floor(
+            Math.random()*max
+        )+1;
+
+    }while(
+        max>1 &&
+        t===lastTarget
+    );
+
+    lastTarget=t;
+
+    return t;
+}
+
+
+/* Main Loop */
+
+function loopTarget(max,t1,t2){
+
+    if(!running) return;
+
+    const delay=
+        (Math.random()*(t2-t1)+t1)
+        *1000;
+
+    timer=setTimeout(()=>{
+
+        const target=
+            targetAcak(max);
+
+        document
+        .getElementById("status")
+        .innerText=
+        "TARGET " + target;
+
+        const audio =
+    audioTargets[target];
+
+if(audio){
+
+    audio.pause();
+    audio.currentTime = 0;
+
+    audio.play()
+    .then(() => {
+
+        // Bip dibunyikan setelah suara target
         setTimeout(() => {
-            switchScreen('screen1', 'screen2');
-            setTimeout(() => {
-                switchScreen('screen2', 'screen3');
-            }, 4000);
-        }, 3000);
+            bunyiBip();
+        }, 1200);
 
-        function switchScreen(fromId, toId) {
-            const fromScreen = document.getElementById(fromId);
-            const toScreen = document.getElementById(toId);
-            
-            fromScreen.style.opacity = '0';
-            setTimeout(() => {
-                fromScreen.classList.remove('active');
-                toScreen.classList.add('active');
-                setTimeout(() => {
-                    toScreen.style.opacity = '1';
-                }, 50);
-            }, 800);
-        }
+    })
+    .catch(err=>{
+        console.log(err);
+    });
+}
 
-        // Fungsi Audio & Suara Target
-        function bunyikanAlarm(nomorTarget) {
-            const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-            const oscillator = audioCtx.createOscillator();
-            const gainNode = audioCtx.createGain();
+        loopTarget(max,t1,t2);
 
-            oscillator.connect(gainNode);
-            gainNode.connect(audioCtx.destination);
+    },delay);
+}
 
-            oscillator.type = 'sine';
-            oscillator.frequency.setValueAtTime(400 + (nomorTarget * 100), audioCtx.currentTime); 
-            
-            gainNode.gain.setValueAtTime(1, audioCtx.currentTime);
-            gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.6);
 
-            oscillator.start(audioCtx.currentTime);
-            oscillator.stop(audioCtx.currentTime + 0.6);
+/* Mulai */
 
-            // Text-to-Speech menyebutkan nomor target
-            const ucapan = new SpeechSynthesisUtterance(`Target ${nomorTarget}`);
-            ucapan.lang = 'id-ID';
-            ucapan.rate = 1.3;
-            window.speechSynthesis.speak(ucapan);
-        }
+function mulaiLatihan(){
 
-        // Logika Pengulangan Tanpa Batas (Looping)
-        let timerLatihan = null;
-        let sedangLatihan = false;
+    const jumlah=
+    parseInt(
+        document
+        .getElementById("jumlahTarget")
+        .value
+    );
 
-        function mulaiLatihan() {
-            const jumlahTarget = parseInt(document.getElementById('jumlahTarget').value);
-            const t1 = parseFloat(document.getElementById('t1').value);
-            const t2 = parseFloat(document.getElementById('t2').value);
+    const t1=
+    parseFloat(
+        document
+        .getElementById("t1")
+        .value
+    );
 
-            if (t1 >= t2) {
-                alert("t2 harus lebih besar dari t1!");
-                return;
-            }
+    const t2=
+    parseFloat(
+        document
+        .getElementById("t2")
+        .value
+    );
 
-            switchScreen('screen3', 'screen4');
-            sedangLatihan = true;
-            
-            // Mulai siklus alarm pertama
-            jadwalkanAlarmBerikutnya(jumlahTarget, t1, t2);
-        }
+    if(jumlah<1 || jumlah>8){
 
-        function jadwalkanAlarmBerikutnya(maxTarget, t1, t2) {
-            if (!sedangLatihan) return;
+        alert(
+            "Jumlah target harus 1-8"
+        );
 
-            // Hitung jeda acak dalam rentang t1 dan t2 (milidetik)
-            const waktuAcakDetik = Math.random() * (t2 - t1) + t1;
+        return;
+    }
 
-            document.getElementById('statusLatihan').innerText = `Fokus...`;
+    if(t1>=t2){
 
-            timerLatihan = setTimeout(() => {
-                // Pilih target secara acak murni dari angka 1 sampai jumlahTarget
-                const targetAcak = Math.floor(Math.random() * maxTarget) + 1;
-                
-                document.getElementById('statusLatihan').innerText = `TARGET ${targetAcak}`;
-                bunyikanAlarm(targetAcak);
-                
-                // Panggil kembali fungsi ini untuk loop tanpa batas
-                jadwalkanAlarmBerikutnya(maxTarget, t1, t2);
-            }, waktuAcakDetik * 1000);
-        }
+        alert(
+            "Rentang waktu 2 harus lebih besar"
+        );
 
-        function stopLatihan() {
-            sedangLatihan = false;
-            clearTimeout(timerLatihan);
-            window.speechSynthesis.cancel();
-            switchScreen('screen4', 'screen3');
-        }
-    </script>
+        return;
+    }
+
+    running=true;
+
+    tampil("screen4");
+
+    document
+    .getElementById("status")
+    .innerText=
+    "FOKUS...";
+
+    loopTarget(
+        jumlah,
+        t1,
+        t2
+    );
+}
+
+
+/* Stop */
+
+function stopLatihan(){
+
+    running=false;
+
+    clearTimeout(timer);
+
+    lastTarget=null;
+
+    tampil("screen3");
+}
+
+function bunyiBip(){
+
+    const ctx =
+        new (window.AudioContext ||
+        window.webkitAudioContext)();
+
+    // Bip pertama
+    const osc1 = ctx.createOscillator();
+    const gain1 = ctx.createGain();
+
+    osc1.connect(gain1);
+    gain1.connect(ctx.destination);
+
+    osc1.type = "sine";
+    osc1.frequency.value = 400;
+
+    gain1.gain.setValueAtTime(
+        0.05,
+        ctx.currentTime
+    );
+
+    osc1.start(ctx.currentTime);
+    osc1.stop(ctx.currentTime + 0.08);
+
+    // Bip kedua
+    const osc2 = ctx.createOscillator();
+    const gain2 = ctx.createGain();
+
+    osc2.connect(gain2);
+    gain2.connect(ctx.destination);
+
+    osc2.type = "sine";
+    osc2.frequency.value = 700;
+
+    gain2.gain.setValueAtTime(
+        0.05,
+        ctx.currentTime + 0.12
+    );
+
+    osc2.start(ctx.currentTime + 0.12);
+    osc2.stop(ctx.currentTime + 0.20);
+}
+
+</script>
+
 </body>
 </html>
